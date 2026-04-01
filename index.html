@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>缤商 Bincial · AI驱动的外贸增长引擎</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 14px; -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
+      background: #F5F7FA; color: #1A1A2E;
+      min-height: 100vh; max-width: 480px; margin: 0 auto; position: relative;
+    }
+
+    /* ===== TOP HEADER ===== */
+    .top-bar {
+      position: fixed; top: 0; left: 50%; transform: translateX(-50%);
+      width: 100%; max-width: 480px; z-index: 100;
+      background: rgba(13,27,42,0.95); backdrop-filter: blur(12px);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 16px;
+      border-bottom: 1px solid rgba(0,201,167,0.18);
+    }
+    .brand { display: flex; align-items: center; gap: 8px; }
+    .logo-icon {
+      width: 32px; height: 32px;
+      background: linear-gradient(135deg,#00C9A7,#1A6B8A);
+      border-radius: 8px; display: flex; align-items: center; justify-content: center;
+      font-size: 16px; color: #fff; font-weight: 700;
+      box-shadow: 0 0 10px rgba(0,201,167,0.4);
+    }
+    .brand-name { font-size: 15px; font-weight: 700; color: #fff; line-height: 1.2; }
+    .brand-name .en { font-size: 10px; color: #00C9A7; letter-spacing: 1px; display: block; }
+    .header-actions { display: flex; align-items: center; gap: 8px; }
+    .contact-btn {
+      font-size: 12px; font-weight: 600;
+      background: linear-gradient(135deg,#00C9A7,#1A6B8A);
+      color: #fff; border: none; border-radius: 16px;
+      padding: 6px 14px; cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,201,167,0.35);
+    }
+
+    /* ===== TAB NAV ===== */
+    .tab-nav {
+      position: fixed; top: 52px; left: 50%; transform: translateX(-50%);
+      width: 100%; max-width: 480px; z-index: 99;
+      background: rgba(13,27,42,0.97);
+      display: flex; border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .tab-item {
+      flex: 1; text-align: center; padding: 10px 0 8px;
+      font-size: 12px; color: rgba(255,255,255,0.45);
+      cursor: pointer; position: relative; transition: color 0.2s;
+      white-space: nowrap;
+    }
+    .tab-item.active { color: #00C9A7; }
+    .tab-item.active::after {
+      content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+      width: 28px; height: 2px;
+      background: linear-gradient(90deg,#00C9A7,#1A6B8A); border-radius: 1px;
+    }
+
+    /* ===== CONTENT ===== */
+    .content-wrap { padding-top: 98px; padding-bottom: 80px; }
+
+    /* ===== SECTION ANCHORS — offset for fixed header ===== */
+    .section-anchor {
+      display: block;
+      height: 0;
+      margin-top: -98px;
+      padding-top: 98px;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    /* ===== HERO ===== */
+    .hero-banner {
+      position: relative; width: 100%; height: 210px; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg,#0D1B2A 0%,#1A3A50 40%,#0D4D4A 100%);
+    }
+    .hero-bg::before {
+      content: ''; position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(0,201,167,0.07) 1px, transparent 1px),
+        linear-gradient(90deg,rgba(0,201,167,0.07) 1px, transparent 1px);
+      background-size: 30px 30px;
+    }
+    .glow1 {
+      position: absolute; top:-30px; right:-20px;
+      width: 140px; height: 140px; border-radius: 50%;
+      background: radial-gradient(circle,rgba(0,201,167,0.22) 0%,transparent 70%);
+    }
+    .glow2 {
+      position: absolute; bottom:-20px; left: 10px;
+      width: 110px; height: 110px; border-radius: 50%;
+      background: radial-gradient(circle,rgba(26,107,138,0.3) 0%,transparent 70%);
+    }
+    .hero-content {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: flex-start; justify-content: center;
+      padding: 0 22px;
+    }
+    .hero-tag {
+      font-size: 10px; font-weight: 600; letter-spacing: 1.5px; color: #00C9A7;
+      background: rgba(0,201,167,0.12); border: 1px solid rgba(0,201,167,0.3);
+      border-radius: 4px; padding: 2px 8px; margin-bottom: 10px; text-transform: uppercase;
+    }
+    .hero-title {
+      font-size: 26px; font-weight: 800; color: #fff; line-height: 1.2; margin-bottom: 8px;
+    }
+    .hero-title .hl { color: #00C9A7; }
+    .hero-sub { font-size: 12px; color: rgba(255,255,255,0.6); line-height: 1.6; }
+
+    /* ===== COMPANY CARD ===== */
+    .company-info-card {
+      margin: -24px 16px 0;
+      background: #fff; border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      padding: 20px 18px 16px; position: relative; z-index: 5;
+    }
+    .company-name-row { display: flex; align-items: flex-start; gap: 14px; }
+    .avatar-box {
+      width: 52px; height: 52px; flex-shrink: 0; border-radius: 12px;
+      background: linear-gradient(135deg,#0D1B2A,#1A6B8A);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; color: #00C9A7; font-weight: 800;
+      box-shadow: 0 2px 12px rgba(26,107,138,0.3);
+    }
+    .company-meta { flex: 1; }
+    .company-name { font-size: 16px; font-weight: 700; color: #0D1B2A; margin-bottom: 4px; }
+    .company-name .en-name { font-size: 11px; color: #1A6B8A; font-weight: 600; margin-left: 4px; }
+    .badge-row { display: flex; gap: 6px; flex-wrap: wrap; }
+    .badge { display: inline-flex; align-items: center; gap: 3px; font-size: 10px; font-weight: 600; border-radius: 4px; padding: 2px 7px; }
+    .badge.blue { background: rgba(26,107,138,0.1); color: #1A6B8A; }
+    .badge.green { background: rgba(0,201,167,0.12); color: #009f84; }
+    .badge.gold { background: rgba(255,185,0,0.12); color: #c8930a; }
+    .divider { height: 1px; background: #F0F2F5; margin: 14px 0; }
+    .stat-row { display: flex; }
+    .stat-item { flex: 1; text-align: center; }
+    .stat-item + .stat-item { border-left: 1px solid #F0F2F5; }
+    .stat-val { font-size: 18px; font-weight: 800; color: #0D1B2A; line-height: 1.2; }
+    .stat-val span { font-size: 11px; color: #1A6B8A; }
+    .stat-lbl { font-size: 10px; color: #888; margin-top: 2px; }
+
+    /* ===== SECTION COMMON ===== */
+    .section { padding: 24px 16px 0; }
+    .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+    .sec-icon { width: 4px; height: 18px; background: linear-gradient(180deg,#00C9A7,#1A6B8A); border-radius: 2px; flex-shrink: 0; }
+    .sec-title { font-size: 16px; font-weight: 700; color: #0D1B2A; }
+    .sec-subtitle { font-size: 11px; color: #888; margin-left: auto; }
+
+    /* ===== TEXT CARD ===== */
+    .intro-text-card { background: #fff; border-radius: 14px; padding: 18px; box-shadow: 0 2px 12px rgba(0,0,0,0.05); }
+    .intro-text-card p { font-size: 13.5px; color: #444; line-height: 1.85; }
+    .intro-text-card p + p { margin-top: 10px; }
+    .highlight-quote {
+      background: linear-gradient(135deg,rgba(0,201,167,0.07),rgba(26,107,138,0.07));
+      border-left: 3px solid #00C9A7; border-radius: 0 10px 10px 0;
+      padding: 12px 14px; margin-top: 12px;
+    }
+    .highlight-quote p { font-size: 13px; color: #1A6B8A; font-weight: 600; line-height: 1.6; }
+
+    /* ===== PAIN POINTS ===== */
+    .cards-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .pain-card { background: #fff; border-radius: 12px; padding: 14px 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); border-top: 3px solid; }
+    .pain-card.c1 { border-color: #FF6B6B; }
+    .pain-card.c2 { border-color: #FFB347; }
+    .pain-card.c3 { border-color: #1A6B8A; }
+    .pain-card.c4 { border-color: #00C9A7; }
+    .pain-icon { font-size: 22px; margin-bottom: 6px; }
+    .pain-title { font-size: 12px; font-weight: 700; color: #0D1B2A; margin-bottom: 4px; }
+    .pain-desc { font-size: 11px; color: #666; line-height: 1.5; }
+
+    /* ===== PRODUCT CARDS ===== */
+    .product-card { background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 2px 14px rgba(0,0,0,0.06); margin-bottom: 14px; }
+    .prod-header { padding: 16px 16px 12px; background: linear-gradient(135deg,#0D1B2A,#1A3A50); position: relative; overflow: hidden; }
+    .prod-header::after {
+      content: ''; position: absolute; right:-20px; top:-20px;
+      width: 80px; height: 80px; border-radius: 50%;
+      background: radial-gradient(circle,rgba(0,201,167,0.2) 0%,transparent 70%);
+    }
+    .prod-no { font-size: 10px; color: rgba(0,201,167,0.7); font-weight: 600; letter-spacing: 1px; margin-bottom: 4px; }
+    .prod-name { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+    .prod-tag { font-size: 10px; color: #00C9A7; background: rgba(0,201,167,0.12); border: 1px solid rgba(0,201,167,0.25); border-radius: 4px; padding: 1px 7px; display: inline-block; }
+    .prod-body { padding: 14px 16px; }
+    .prod-desc { font-size: 12.5px; color: #555; line-height: 1.7; margin-bottom: 12px; }
+    .feat-list { list-style: none; }
+    .feat-list li { font-size: 12px; color: #333; padding: 5px 0; border-bottom: 1px dashed #f0f0f0; display: flex; align-items: flex-start; gap: 6px; }
+    .feat-list li:last-child { border-bottom: none; }
+    .feat-list li::before { content: '✓'; color: #00C9A7; font-weight: 700; font-size: 11px; flex-shrink: 0; margin-top: 1px; }
+
+    /* ===== PRODUCT MOCKUP IMAGES (SVG) ===== */
+    .prod-mockup { width: 100%; margin: 14px 0 4px; border-radius: 10px; overflow: hidden; background: #0D1B2A; }
+    .prod-mockup svg { width: 100%; display: block; }
+
+    /* ===== METRIC CHIPS ===== */
+    .metric-row { display: flex; gap: 10px; margin-top: 12px; }
+    .metric-chip { flex: 1; text-align: center; background: linear-gradient(135deg,rgba(0,201,167,0.08),rgba(26,107,138,0.08)); border: 1px solid rgba(0,201,167,0.2); border-radius: 10px; padding: 10px 6px; }
+    .metric-val { font-size: 20px; font-weight: 800; color: #1A6B8A; line-height: 1.1; }
+    .metric-unit { font-size: 11px; color: #00C9A7; font-weight: 600; }
+    .metric-lbl { font-size: 10px; color: #666; margin-top: 3px; }
+
+    /* ===== COMPARE TABLE ===== */
+    .compare-table { background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.05); }
+    .compare-table table { width: 100%; border-collapse: collapse; }
+    .compare-table thead th { padding: 10px 6px; font-size: 11.5px; font-weight: 700; text-align: center; }
+    .compare-table thead th:first-child { text-align: left; padding-left: 12px; background: #F9FAFB; color: #555; white-space: nowrap; }
+    .compare-table thead th.th-bs { background: linear-gradient(135deg,#0D1B2A,#1A3A50); color: #00C9A7; }
+    .compare-table thead th.th-trad { background: #F3F4F6; color: #888; }
+    .compare-table tbody td { padding: 8px 6px; font-size: 11px; text-align: center; border-top: 1px solid #F5F5F5; line-height: 1.4; }
+    .compare-table tbody td:first-child { text-align: left; padding-left: 12px; color: #333; font-weight: 500; white-space: nowrap; }
+    .compare-table tbody tr:nth-child(even) td { background: #FAFBFC; }
+    .tick { color: #00C9A7; font-weight: 700; }
+    .cross { color: #bbb; }
+
+    /* ===== PLAN CARDS ===== */
+    .plan-cards { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 8px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
+    .plan-cards::-webkit-scrollbar { display: none; }
+    .plan-card { min-width: calc(50% - 16px); max-width: 160px; flex-shrink: 0; border-radius: 14px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.07); scroll-snap-align: start; }
+    .plan-head { padding: 14px 12px 10px; text-align: center; }
+    .plan-card.basic .plan-head { background: linear-gradient(135deg,#4A5568,#2D3748); }
+    .plan-card.standard .plan-head { background: linear-gradient(135deg,#1A6B8A,#0D4D6A); }
+    .plan-card.premium .plan-head { background: linear-gradient(135deg,#0D1B2A,#1A3A50); position: relative; overflow: hidden; }
+    .plan-card.premium .plan-head::before { content: ''; position: absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,#00C9A7,#1A6B8A,#00C9A7); }
+    .plan-name { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 2px; }
+    .plan-en { font-size: 10px; color: rgba(255,255,255,0.5); }
+    .plan-body { background: #fff; padding: 12px 10px; }
+    .plan-feat { font-size: 11px; color: #444; padding: 5px 0; border-bottom: 1px dashed #f0f0f0; display: flex; align-items: center; gap: 5px; }
+    .plan-feat:last-child { border-bottom: none; }
+    .plan-feat::before { content:'·'; color:#00C9A7; font-weight:700; }
+
+    /* ===== CUSTOMER CARDS ===== */
+    .customer-cards { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px; -webkit-overflow-scrolling: touch; }
+    .customer-cards::-webkit-scrollbar { display: none; }
+    .cust-card { min-width: 120px; flex-shrink: 0; background: #fff; border-radius: 12px; padding: 14px 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); text-align: center; border-bottom: 3px solid #00C9A7; }
+    .cust-icon { font-size: 24px; margin-bottom: 6px; }
+    .cust-name { font-size: 12px; font-weight: 700; color: #0D1B2A; margin-bottom: 3px; }
+    .cust-desc { font-size: 10px; color: #888; line-height: 1.4; }
+
+    /* ===== VALUE GRID ===== */
+    .value-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .value-block { background: #fff; border-radius: 14px; padding: 18px 14px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); text-align: center; position: relative; overflow: hidden; }
+    .value-block::before { content: ''; position: absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,#00C9A7,#1A6B8A); }
+    .vb-val { font-size: 26px; font-weight: 900; background: linear-gradient(135deg,#00C9A7,#1A6B8A); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.1; margin-bottom: 4px; }
+    .vb-lbl { font-size: 11px; color: #555; line-height: 1.4; }
+
+    /* ===== STEPS ===== */
+    .step-item { display: flex; align-items: flex-start; gap: 12px; background: #fff; border-radius: 12px; padding: 14px; margin-bottom: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+    .step-num { width: 28px; height: 28px; flex-shrink: 0; border-radius: 50%; background: linear-gradient(135deg,#00C9A7,#1A6B8A); color: #fff; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+    .step-title { font-size: 13px; font-weight: 700; color: #0D1B2A; margin-bottom: 2px; }
+    .step-desc { font-size: 11.5px; color: #666; line-height: 1.5; }
+
+    /* ===== PLATFORM TAGS ===== */
+    .platform-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .ptag { font-size: 11px; font-weight: 600; background: #F0F7FF; color: #1A6B8A; border: 1px solid rgba(26,107,138,0.2); border-radius: 6px; padding: 4px 10px; }
+
+    /* ===== CTA ===== */
+    .cta-section {
+      margin: 24px 16px 0;
+      background: linear-gradient(135deg,#0D1B2A,#1A3A50 50%,#0D4D4A);
+      border-radius: 18px; padding: 28px 22px; text-align: center; position: relative; overflow: hidden;
+    }
+    .cta-section::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(0,201,167,0.06) 1px,transparent 1px), linear-gradient(90deg,rgba(0,201,167,0.06) 1px,transparent 1px);
+      background-size: 28px 28px;
+    }
+    .cta-title { font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 6px; position: relative; }
+    .cta-sub { font-size: 12px; color: rgba(255,255,255,0.6); margin-bottom: 20px; position: relative; }
+    .cta-btn { display: inline-block; background: linear-gradient(135deg,#00C9A7,#1A6B8A); color: #fff; font-size: 14px; font-weight: 700; border: none; border-radius: 24px; padding: 12px 32px; cursor: pointer; box-shadow: 0 4px 16px rgba(0,201,167,0.4); position: relative; }
+
+    /* ===== FOOTER ===== */
+    .page-footer { background: #0D1B2A; padding: 24px 20px; margin-top: 32px; text-align: center; }
+    .footer-logo { font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 2px; }
+    .footer-logo .fc { color: #00C9A7; }
+    .footer-en { font-size: 12px; color: #00C9A7; letter-spacing: 2px; margin-bottom: 8px; }
+    .footer-slogan { font-size: 12px; color: rgba(255,255,255,0.4); margin-bottom: 14px; }
+    .footer-links { display: flex; justify-content: center; gap: 20px; font-size: 11px; color: rgba(255,255,255,0.35); margin-bottom: 12px; }
+    .footer-contact { font-size: 11px; color: rgba(255,255,255,0.45); line-height: 1.8; }
+
+    /* helpers */
+    .mt12 { margin-top: 12px; }
+    .mt16 { margin-top: 16px; }
+  </style>
+</head>
+<body>
+
+<!-- ===== FIXED HEADER ===== -->
+<header class="top-bar">
+  <div class="brand">
+    <div class="logo-icon">缤</div>
+    <div class="brand-name">
+      缤商
+      <span class="en">BINCIAL</span>
+    </div>
+  </div>
+  <div class="header-actions">
+    <button class="contact-btn" id="ctaTop">立即咨询</button>
+  </div>
+</header>
+
+<!-- ===== TAB NAV ===== -->
+<nav class="tab-nav">
+  <div class="tab-item active" data-target="sec-home">首页</div>
+  <div class="tab-item" data-target="sec-products">产品体系</div>
+  <div class="tab-item" data-target="sec-compare">方案对比</div>
+  <div class="tab-item" data-target="sec-about">关于我们</div>
+</nav>
+
+<!-- ===== MAIN CONTENT ===== -->
+<main class="content-wrap">
+
+  <!-- ══════════════════ SECTION: 首页 ══════════════════ -->
+  <span class="section-anchor" id="sec-home"></span>
+
+  <!-- HERO -->
+  <div class="hero-banner">
+    <div class="hero-bg"></div>
+    <div class="glow1"></div><div class="glow2"></div>
+    <div class="hero-content">
+      <div class="hero-tag">AI · 外贸 · 增长</div>
+      <div class="hero-title">AI驱动的<br><span class="hl">外贸增长</span>引擎</div>
+      <div class="hero-sub">让中小企业轻松实现<br>数字化转型 · 智能获客 · 全球扩张</div>
+    </div>
+  </div>
+
+  <!-- COMPANY CARD -->
+  <div class="company-info-card">
+    <div class="company-name-row">
+      <div class="avatar-box">缤</div>
+      <div class="company-meta">
+        <div class="company-name">缤商<span class="en-name">Bincial</span></div>
+        <div class="badge-row">
+          <span class="badge blue">🌐 跨境外贸</span>
+          <span class="badge green">🤖 AI驱动</span>
+          <span class="badge gold">⭐ 企业认证</span>
+        </div>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="stat-row">
+      <div class="stat-item">
+        <div class="stat-val">80<span>%+</span></div>
+        <div class="stat-lbl">接待工作释放</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-val">20<span>+</span></div>
+        <div class="stat-lbl">支持语言数</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-val">5<span>min</span></div>
+        <div class="stat-lbl">快速完成建站</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INTRO -->
+  <div class="section">
+    <div class="section-header">
+      <div class="sec-icon"></div>
+      <div class="sec-title">关于缤商 Bincial</div>
+    </div>
+    <div class="intro-text-card">
+      <p>缤商（Bincial）是专为传统/非标/长尾中小企业打造的 <strong>AI智能商业应用</strong>，聚焦数字化转型与智能外贸获客，让企业用更低成本、更短时间，触达全球买家。</p>
+      <p>无需技术团队，无需繁琐操作——缤商将外贸展示、客户接待、主动获客整合成一套开箱即用的AI工具体系。</p>
+      <div class="highlight-quote">
+        <p>💡「将非标销售场景流程化、标准化，释放销售团队的核心生产力」</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAIN POINTS -->
+  <div class="section mt16">
+    <div class="section-header">
+      <div class="sec-icon"></div>
+      <div class="sec-title">行业痛点</div>
+      <div class="sec-subtitle">你是否也面临这些困境？</div>
+    </div>
+    <div class="cards-grid-2">
+      <div class="pain-card c1">
+        <div class="pain-icon">😩</div>
+        <div class="pain-title">建站成本高</div>
+        <div class="pain-desc">传统官网耗资数万，非标品无法标准化展示</div>
+      </div>
+      <div class="pain-card c2">
+        <div class="pain-icon">⏰</div>
+        <div class="pain-title">重复接待累</div>
+        <div class="pain-desc">80%时间消耗在低质量询盘筛选与重复沟通</div>
+      </div>
+      <div class="pain-card c3">
+        <div class="pain-icon">📉</div>
+        <div class="pain-title">获客成本贵</div>
+        <div class="pain-desc">社媒运营费时，主动触达潜客效率极低</div>
+      </div>
+      <div class="pain-card c4">
+        <div class="pain-icon">🌐</div>
+        <div class="pain-title">语言壁垒大</div>
+        <div class="pain-desc">多语言支持难，影响全球买家信任度</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════ SECTION: 产品体系 ══════════════════ -->
+  <span class="section-anchor" id="sec-products"></span>
+  <div class="section mt16">
+    <div class="section-header">
+      <div class="sec-icon"></div>
+      <div class="sec-title">产品体系</div>
+      <div class="sec-subtitle">三大核心能力</div>
+    </div>
+
+    <!-- PRODUCT 01 客应云 -->
+    <div class="product-card">
+      <div class="prod-header">
+        <div class="prod-no">PRODUCT 01</div>
+        <div class="prod-name">缤商 · 客应云</div>
+        <div class="prod-tag">轻量化AI数字化小店</div>
+      </div>
+      <div class="prod-body">
+        <div class="prod-desc">零散资料一键导入，5分钟生成专业H5微店。好操作、易运营、迭代快，帮助非标企业轻松拥有数字化展厅。</div>
+
+        <!-- 建站流程示意图 SVG -->
+        <div class="prod-mockup">
+          <svg viewBox="0 0 340 180" xmlns="http://www.w3.org/2000/svg">
+            <rect width="340" height="180" fill="#0D1B2A"/>
+            <!-- grid -->
+            <defs>
+              <pattern id="g1" width="20" height="20" patternUnits="userSpaceOnUse">
+                <path d="M20 0L0 0 0 20" fill="none" stroke="rgba(0,201,167,0.07)" stroke-width="0.5"/>
+              </pattern>
+            </defs>
+            <rect width="340" height="180" fill="url(#g1)"/>
+            <!-- title bar -->
+            <rect x="0" y="0" width="340" height="22" fill="#1A3A50"/>
+            <circle cx="10" cy="11" r="3.5" fill="#FF6B6B" opacity="0.8"/>
+            <circle cx="20" cy="11" r="3.5" fill="#FFB347" opacity="0.8"/>
+            <circle cx="30" cy="11" r="3.5" fill="#00C9A7" opacity="0.8"/>
+            <text x="170" y="15" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="8" font-family="sans-serif">缤商 · 客应云 — 建站工作台</text>
+
+            <!-- 3 step flow -->
+            <!-- Step 1 upload -->
+            <rect x="14" y="32" width="88" height="130" rx="8" fill="#1A3A50"/>
+            <rect x="14" y="32" width="88" height="20" rx="8" fill="#00C9A7" opacity="0.15"/>
+            <text x="58" y="46" text-anchor="middle" fill="#00C9A7" font-size="8" font-weight="bold" font-family="sans-serif">① 上传资料</text>
+            <!-- file icons -->
+            <rect x="24" y="58" width="30" height="36" rx="4" fill="#1A6B8A" opacity="0.5"/>
+            <text x="39" y="80" text-anchor="middle" fill="#fff" font-size="16" font-family="sans-serif">📷</text>
+            <rect x="62" y="58" width="30" height="36" rx="4" fill="#1A6B8A" opacity="0.5"/>
+            <text x="77" y="80" text-anchor="middle" fill="#fff" font-size="16" font-family="sans-serif">🎵</text>
+            <rect x="24" y="100" width="68" height="22" rx="4" fill="#1A6B8A" opacity="0.5"/>
+            <text x="58" y="115" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="8" font-family="sans-serif">微信聊天记录.txt</text>
+            <text x="58" y="150" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="8" font-family="sans-serif">语音/图片/文档</text>
+
+            <!-- arrow 1 -->
+            <path d="M108 97 L126 97" stroke="#00C9A7" stroke-width="1.5" marker-end="url(#arr)" opacity="0.8"/>
+            <polygon points="126,94 132,97 126,100" fill="#00C9A7" opacity="0.8"/>
+            <text x="117" y="91" text-anchor="middle" fill="#00C9A7" font-size="7" font-family="sans-serif">AI处理</text>
+
+            <!-- Step 2 AI generate -->
+            <rect x="130" y="32" width="80" height="130" rx="8" fill="#1A3A50"/>
+            <rect x="130" y="32" width="80" height="20" rx="8" fill="#00C9A7" opacity="0.15"/>
+            <text x="170" y="46" text-anchor="middle" fill="#00C9A7" font-size="8" font-weight="bold" font-family="sans-serif">② AI生成</text>
+            <!-- progress bar animation hint -->
+            <rect x="140" y="58" width="60" height="6" rx="3" fill="#0D1B2A"/>
+            <rect x="140" y="58" width="55" height="6" rx="3" fill="#00C9A7" opacity="0.8"/>
+            <text x="170" y="75" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-size="7" font-family="sans-serif">92% 生成中...</text>
+            <!-- language flags row -->
+            <text x="170" y="92" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-size="7" font-family="sans-serif">多语言适配</text>
+            <text x="145" y="108" font-size="12" font-family="sans-serif">🇺🇸</text>
+            <text x="161" y="108" font-size="12" font-family="sans-serif">🇩🇪</text>
+            <text x="177" y="108" font-size="12" font-family="sans-serif">🇫🇷</text>
+            <text x="193" y="108" font-size="12" font-family="sans-serif">🇯🇵</text>
+            <text x="170" y="126" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-size="7" font-family="sans-serif">+16 种语言</text>
+            <text x="170" y="148" text-anchor="middle" fill="#00C9A7" font-size="8" font-weight="bold" font-family="sans-serif">约 5 分钟完成</text>
+
+            <!-- arrow 2 -->
+            <polygon points="216,94 222,97 216,100" fill="#00C9A7" opacity="0.8"/>
+            <path d="M210,97 L215,97" stroke="#00C9A7" stroke-width="1.5" opacity="0.8"/>
+
+            <!-- Step 3 result -->
+            <rect x="218" y="32" width="108" height="130" rx="8" fill="#1A3A50"/>
+            <rect x="218" y="32" width="108" height="20" rx="8" fill="#00C9A7" opacity="0.15"/>
+            <text x="272" y="46" text-anchor="middle" fill="#00C9A7" font-size="8" font-weight="bold" font-family="sans-serif">③ H5微店上线</text>
+            <!-- phone mockup -->
+            <rect x="244" y="56" width="56" height="90" rx="8" fill="#0D1B2A" stroke="#00C9A7" stroke-width="1" opacity="0.9"/>
+            <rect x="248" y="62" width="48" height="6" rx="2" fill="#1A6B8A" opacity="0.7"/>
+            <rect x="248" y="72" width="48" height="22" rx="3" fill="rgba(0,201,167,0.15)"/>
+            <text x="272" y="87" text-anchor="middle" fill="#00C9A7" font-size="7" font-family="sans-serif">产品展示页</text>
+            <rect x="248" y="98" width="22" height="14" rx="2" fill="#1A6B8A" opacity="0.5"/>
+            <rect x="274" y="98" width="22" height="14" rx="2" fill="#1A6B8A" opacity="0.5"/>
+            <rect x="248" y="116" width="48" height="8" rx="2" fill="#1A6B8A" opacity="0.3"/>
+            <rect x="248" y="128" width="32" height="8" rx="2" fill="#1A6B8A" opacity="0.3"/>
+            <text x="272" y="158" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="7" font-family="sans-serif">可分享 · 可扫码</text>
+          </svg>
+        </div>
+
+        <ul class="feat-list">
+          <li>语音/照片/聊天记录零散资料一键导入</li>
+          <li>AI秒级生成H5微店，20+语言自动适配</li>
+          <li>高级版最多60页，内容随时迭代</li>
+          <li>无需技术团队，运营零门槛</li>
+        </ul>
+        <div class="metric-row">
+          <div class="metric-chip">
+            <div class="metric-val">5<span class="metric-unit">min</span></div>
+            <div class="metric-lbl">快速完成建站</div>
+          </div>
+          <div class="metric-chip">
+            <div class="metric-val">20<span class="metric-unit">+</span></div>
+            <div class="metric-lbl">支持语言</div>
+          </div>
+          <div class="metric-chip">
+            <div class="metric-val">60<span class="metric-unit">页</span></div>
+            <div class="metric-lbl">高级版容量</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRODUCT 02 灵犀甄客 -->
+    <div class="product-card">
+      <div class="prod-header">
+        <div class="prod-no">PRODUCT 02</div>
+        <div class="prod-name">缤商 · 灵犀甄客</div>
+        <div class="prod-tag">AI智能销售接待系统</div>
+      </div>
+      <div class="prod-body">
+        <div class="prod-desc">首创「分级防御」系统，释放销售80%+前期接待工作。智能识别三类访客，让销售只聚焦高价值客户。</div>
+
+        <!-- 分级防御示意图 SVG -->
+        <div class="prod-mockup">
+          <svg viewBox="0 0 340 200" xmlns="http://www.w3.org/2000/svg">
+            <rect width="340" height="200" fill="#0D1B2A"/>
+            <defs>
+              <pattern id="g2" width="20" height="20" patternUnits="userSpaceOnUse">
+                <path d="M20 0L0 0 0 20" fill="none" stroke="rgba(0,201,167,0.06)" stroke-width="0.5"/>
+              </pattern>
+            </defs>
+            <rect width="340" height="200" fill="url(#g2)"/>
+            <!-- title -->
+            <rect x="0" y="0" width="340" height="22" fill="#1A3A50"/>
+            <text x="170" y="15" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="8" font-family="sans-serif">缤商 · 灵犀甄客 — 访客分级防御系统</text>
+
+            <!-- Funnel shape -->
+            <!-- All visitors label -->
+            <text x="170" y="40" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="9" font-weight="bold" font-family="sans-serif">全部访客流入</text>
+            <polygon points="60,46 280,46 250,76 90,76" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+            <text x="170" y="65" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-size="8" font-family="sans-serif">AI 实时识别意图</text>
+
+            <!-- Level 1 block: 屏蔽同行 -->
+            <rect x="20" y="82" width="88" height="50" rx="6" fill="rgba(255,107,107,0.12)" stroke="#FF6B6B" stroke-width="1"/>
+            <text x="64" y="100" text-anchor="middle" fill="#FF6B6B" font-size="10" font-family="sans-serif">🚫 屏蔽</text>
+            <text x="64" y="114" text-anchor="middle" fill="rgba(255,107,107,0.8)" font-size="8" font-family="sans-serif">同行套词</text>
+            <text x="64" y="124" text-anchor="middle" fill="rgba(255,107,107,0.6)" font-size="7" font-family="sans-serif">恶意询盘</text>
+
+            <!-- Level 2 block: 静默观察 -->
+            <rect x="126" y="82" width="88" height="50" rx="6" fill="rgba(255,179,71,0.12)" stroke="#FFB347" stroke-width="1"/>
+            <text x="170" y="100" text-anchor="middle" fill="#FFB347" font-size="10" font-family="sans-serif">👀 观察</text>
+            <text x="170" y="114" text-anchor="middle" fill="rgba(255,179,71,0.8)" font-size="8" font-family="sans-serif">低意向访客</text>
+            <text x="170" y="124" text-anchor="middle" fill="rgba(255,179,71,0.6)" font-size="7" font-family="sans-serif">静默收集信息</text>
+
+            <!-- Level 3 block: 优先推送 -->
+            <rect x="232" y="82" width="88" height="50" rx="6" fill="rgba(0,201,167,0.12)" stroke="#00C9A7" stroke-width="1"/>
+            <text x="276" y="100" text-anchor="middle" fill="#00C9A7" font-size="10" font-family="sans-serif">⭐ 优先</text>
+            <text x="276" y="114" text-anchor="middle" fill="rgba(0,201,167,0.8)" font-size="8" font-family="sans-serif">高价值买家</text>
+            <text x="276" y="124" text-anchor="middle" fill="rgba(0,201,167,0.6)" font-size="7" font-family="sans-serif">立即推送销售</text>
+
+            <!-- arrows down from funnel -->
+            <line x1="64" y1="76" x2="64" y2="82" stroke="rgba(255,107,107,0.5)" stroke-width="1.5" stroke-dasharray="3,2"/>
+            <line x1="170" y1="76" x2="170" y2="82" stroke="rgba(255,179,71,0.5)" stroke-width="1.5" stroke-dasharray="3,2"/>
+            <line x1="276" y1="76" x2="276" y2="82" stroke="rgba(0,201,167,0.5)" stroke-width="1.5" stroke-dasharray="3,2"/>
+
+            <!-- Result row -->
+            <rect x="80" y="146" width="180" height="40" rx="8" fill="rgba(0,201,167,0.08)" stroke="#00C9A7" stroke-width="1"/>
+            <text x="170" y="162" text-anchor="middle" fill="#00C9A7" font-size="9" font-weight="bold" font-family="sans-serif">销售聚焦高意向客户</text>
+            <text x="170" y="177" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="8" font-family="sans-serif">释放 80%+ 前期接待工作</text>
+
+            <!-- arrow to result -->
+            <line x1="276" y1="132" x2="230" y2="146" stroke="rgba(0,201,167,0.4)" stroke-width="1" stroke-dasharray="3,2"/>
+          </svg>
+        </div>
+
+        <ul class="feat-list">
+          <li>屏蔽同行套词，拦截恶意询盘</li>
+          <li>观察低意向访客，静默收集信息</li>
+          <li>优先标记高价值买家，推送给销售</li>
+          <li>将非标场景标准化，可复制到团队</li>
+        </ul>
+        <div class="metric-row">
+          <div class="metric-chip">
+            <div class="metric-val">80<span class="metric-unit">%+</span></div>
+            <div class="metric-lbl">接待工作释放</div>
+          </div>
+          <div class="metric-chip">
+            <div class="metric-val">3<span class="metric-unit">级</span></div>
+            <div class="metric-lbl">访客分级防御</div>
+          </div>
+          <div class="metric-chip">
+            <div class="metric-val">秒<span class="metric-unit">级</span></div>
+            <div class="metric-lbl">意图识别响应</div>
+          </div>
+        </div>
+        <div class="highlight-quote mt12">
+          <p>💡 行业首创「分级防御」体系：屏蔽/观察/优先，每个询盘都有智能应对策略</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRODUCT 03 声呐推 -->
+    <div class="product-card">
+      <div class="prod-header">
+        <div class="prod-no">PRODUCT 03</div>
+        <div class="prod-name">缤商 · 声呐推</div>
+        <div class="prod-tag">流量赋能与主动获客引擎</div>
+      </div>
+      <div class="prod-body">
+        <div class="prod-desc">AI扫描社媒评论区识别潜在买家，一键分发内容到8大海外主流平台，自动私信主动触达，全自动获客闭环。</div>
+
+        <!-- 声呐推获客流程图 SVG（参考看板风格） -->
+        <div class="prod-mockup">
+          <svg viewBox="0 0 340 210" xmlns="http://www.w3.org/2000/svg">
+            <rect width="340" height="210" fill="#0D1B2A"/>
+            <defs>
+              <pattern id="g3" width="20" height="20" patternUnits="userSpaceOnUse">
+                <path d="M20 0L0 0 0 20" fill="none" stroke="rgba(0,201,167,0.06)" stroke-width="0.5"/>
+              </pattern>
+            </defs>
+            <rect width="340" height="210" fill="url(#g3)"/>
+            <!-- top bar -->
+            <rect x="0" y="0" width="340" height="22" fill="#1A3A50"/>
+            <circle cx="10" cy="11" r="3" fill="#FF6B6B" opacity="0.7"/>
+            <circle cx="19" cy="11" r="3" fill="#FFB347" opacity="0.7"/>
+            <circle cx="28" cy="11" r="3" fill="#00C9A7" opacity="0.7"/>
+            <text x="200" y="15" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="8" font-family="sans-serif">缤商 · 声呐推 — 全自动获客看板</text>
+
+            <!-- Step labels -->
+            <text x="170" y="36" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-size="8" font-family="sans-serif">全自动4步获客闭环</text>
+
+            <!-- Step flow: 4 boxes in a row with arrows -->
+            <!-- Box 1 -->
+            <rect x="8" y="44" width="68" height="70" rx="7" fill="#1A3A50"/>
+            <rect x="8" y="44" width="68" height="18" rx="7" fill="rgba(0,201,167,0.2)"/>
+            <text x="42" y="57" text-anchor="middle" fill="#00C9A7" font-size="8" font-weight="bold" font-family="sans-serif">内容生产</text>
+            <text x="42" y="74" text-anchor="middle" font-size="18" font-family="sans-serif">✍️</text>
+            <text x="42" y="94" text-anchor="middle" fill="rgba(255,255,255,0.55)" font-size="7.5" font-family="sans-serif">AI一键生成</text>
+            <text x="42" y="105" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-size="7" font-family="sans-serif">多语言内容</text>
+
+            <!-- Arrow 1→2 -->
+            <polygon points="79,79 85,76 85,82" fill="#00C9A7" opacity="0.7"/>
+            <line x1="76" y1="79" x2="84" y2="79" stroke="#00C9A7" stroke-width="1.2" opacity="0.7"/>
+
+            <!-- Box 2 -->
+            <rect x="87" y="44" width="68" height="70" rx="7" fill="#1A3A50"/>
+            <rect x="87" y="44" width="68" height="18" rx="7" fill="rgba(0,201,167,0.2)"/>
+            <text x="121" y="57" text-anchor="middle" fill="#00C9A7" font-size="8" font-weight="bold" font-family="sans-serif">一键分发</text>
+            <!-- platform mini icons -->
+            <text x="97" y="76" font-size="12" font-family="sans-serif">📘</text>
+            <text x="112" y="76" font-size="12" font-family="sans-serif">📸</text>
+            <text x="127" y="76" font-size="12" font-family="sans-serif">💼</text>
+            <text x="142" y="76" font-size="12" font-family="sans-serif">🎵</text>
+            <text x="121" y="96" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-size="7" font-family="sans-serif">8大社媒平台</text>
+            <text x="121" y="107" text-anchor="middle" fill="#00C9A7" font-size="7.5" font-family="sans-serif">同步发布</text>
+
+            <!-- Arrow 2→3 -->
+            <polygon points="158,79 164,76 164,82" fill="#00C9A7" opacity="0.7"/>
+            <line x1="155" y1="79" x2="163" y2="79" stroke="#00C9A7" stroke-width="1.2" opacity="0.7"/>
+
+            <!-- Box 3 -->
+            <rect x="166" y="44" width="68" height="70" rx="7" fill="#1A3A50"/>
+            <rect x="166" y="44" width="68" height="18" rx="7" fill="rgba(0,201,167,0.2)"/>
+            <text x="200" y="57" text-anchor="middle" fill="#00C9A7" font-size="8" font-weight="bold" font-family="sans-serif">AI声呐扫描</text>
+            <text x="200" y="75" text-anchor="middle" font-size="18" font-family="sans-serif">📡</text>
+            <text x="200" y="93" text-anchor="middle" fill="rgba(255,255,255,0.55)" font-size="7.5" font-family="sans-serif">扫描评论区</text>
+            <text x="200" y="105" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-size="7" font-family="sans-serif">识别潜在买家</text>
+
+            <!-- Arrow 3→4 -->
+            <polygon points="237,79 243,76 243,82" fill="#00C9A7" opacity="0.7"/>
+            <line x1="234" y1="79" x2="242" y2="79" stroke="#00C9A7" stroke-width="1.2" opacity="0.7"/>
+
+            <!-- Box 4 -->
+            <rect x="245" y="44" width="87" height="70" rx="7" fill="#1A3A50"/>
+            <rect x="245" y="44" width="87" height="18" rx="7" fill="rgba(0,201,167,0.2)"/>
+            <text x="288" y="57" text-anchor="middle" fill="#00C9A7" font-size="8" font-weight="bold" font-family="sans-serif">AI私信触达</text>
+            <text x="288" y="75" text-anchor="middle" font-size="18" font-family="sans-serif">💬</text>
+            <text x="288" y="94" text-anchor="middle" fill="rgba(255,255,255,0.55)" font-size="7.5" font-family="sans-serif">潜客自动入库</text>
+            <text x="288" y="105" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-size="7" font-family="sans-serif">AI私信主动触达</text>
+
+            <!-- 看板风格：潜客数据列表 -->
+            <rect x="8" y="124" width="324" height="16" rx="3" fill="rgba(0,201,167,0.08)"/>
+            <text x="18" y="135" fill="rgba(255,255,255,0.4)" font-size="7" font-family="sans-serif">平台</text>
+            <text x="70" y="135" fill="rgba(255,255,255,0.4)" font-size="7" font-family="sans-serif">用户名</text>
+            <text x="170" y="135" fill="rgba(255,255,255,0.4)" font-size="7" font-family="sans-serif">意向关键词</text>
+            <text x="265" y="135" fill="rgba(255,255,255,0.4)" font-size="7" font-family="sans-serif">状态</text>
+            <text x="305" y="135" fill="rgba(255,255,255,0.4)" font-size="7" font-family="sans-serif">触达</text>
+
+            <!-- row 1 -->
+            <rect x="8" y="142" width="324" height="14" rx="2" fill="rgba(255,255,255,0.02)"/>
+            <text x="18" y="152" fill="rgba(100,180,255,0.8)" font-size="7" font-family="sans-serif">LinkedIn</text>
+            <text x="70" y="152" fill="rgba(255,255,255,0.6)" font-size="7" font-family="sans-serif">John M.</text>
+            <text x="170" y="152" fill="rgba(255,255,255,0.5)" font-size="7" font-family="sans-serif">需要定制五金件</text>
+            <rect x="263" y="145" width="32" height="10" rx="3" fill="rgba(0,201,167,0.2)"/>
+            <text x="279" y="153" text-anchor="middle" fill="#00C9A7" font-size="7" font-family="sans-serif">高意向</text>
+            <text x="305" y="152" fill="#00C9A7" font-size="7" font-family="sans-serif">✓已发</text>
+
+            <!-- row 2 -->
+            <rect x="8" y="158" width="324" height="14" rx="2" fill="rgba(255,255,255,0.02)"/>
+            <text x="18" y="168" fill="rgba(255,100,100,0.8)" font-size="7" font-family="sans-serif">Facebook</text>
+            <text x="70" y="168" fill="rgba(255,255,255,0.6)" font-size="7" font-family="sans-serif">Sarah K.</text>
+            <text x="170" y="168" fill="rgba(255,255,255,0.5)" font-size="7" font-family="sans-serif">求推荐户外家具</text>
+            <rect x="263" y="161" width="32" height="10" rx="3" fill="rgba(255,179,71,0.2)"/>
+            <text x="279" y="169" text-anchor="middle" fill="#FFB347" font-size="7" font-family="sans-serif">中意向</text>
+            <text x="305" y="168" fill="#FFB347" font-size="7" font-family="sans-serif">发送中</text>
+
+            <!-- row 3 -->
+            <rect x="8" y="174" width="324" height="14" rx="2" fill="rgba(255,255,255,0.02)"/>
+            <text x="18" y="184" fill="rgba(180,100,255,0.8)" font-size="7" font-family="sans-serif">Instagram</text>
+            <text x="70" y="184" fill="rgba(255,255,255,0.6)" font-size="7" font-family="sans-serif">@buyer_de</text>
+            <text x="170" y="184" fill="rgba(255,255,255,0.5)" font-size="7" font-family="sans-serif">批量采购询价</text>
+            <rect x="263" y="177" width="32" height="10" rx="3" fill="rgba(0,201,167,0.2)"/>
+            <text x="279" y="185" text-anchor="middle" fill="#00C9A7" font-size="7" font-family="sans-serif">高意向</text>
+            <text x="305" y="184" fill="#00C9A7" font-size="7" font-family="sans-serif">✓已发</text>
+
+            <!-- bottom stats bar -->
+            <rect x="8" y="192" width="324" height="14" rx="3" fill="rgba(0,201,167,0.06)" stroke="rgba(0,201,167,0.15)" stroke-width="0.5"/>
+            <text x="60" y="202" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="7" font-family="sans-serif">今日扫描: 1,284条</text>
+            <text x="170" y="202" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="7" font-family="sans-serif">识别潜客: 47人</text>
+            <text x="275" y="202" text-anchor="middle" fill="#00C9A7" font-size="7" font-family="sans-serif">触达成功: 43人</text>
+          </svg>
+        </div>
+
+        <ul class="feat-list">
+          <li>内容一键分发至LinkedIn/Facebook/Instagram等8大平台</li>
+          <li>AI扫描帖子评论区，识别潜在买家意图</li>
+          <li>潜客自动入库，AI私信主动触达</li>
+          <li>全自动获客闭环，无需人工逐条操作</li>
+        </ul>
+        <div class="mt12">
+          <div class="platform-tags">
+            <span class="ptag">LinkedIn</span>
+            <span class="ptag">Facebook</span>
+            <span class="ptag">Instagram</span>
+            <span class="ptag">Twitter/X</span>
+            <span class="ptag">TikTok</span>
+            <span class="ptag">YouTube</span>
+            <span class="ptag">WhatsApp</span>
+            <span class="ptag">Telegram</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════ SECTION: 方案对比 ══════════════════ -->
+  <span class="section-anchor" id="sec-compare"></span>
+  <div class="section mt16">
+    <div class="section-header">
+      <div class="sec-icon"></div>
+      <div class="sec-title">缤商 vs 传统方式</div>
+    </div>
+    <div class="compare-table">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th class="th-bs">缤商 Bincial</th>
+            <th class="th-trad">传统方式</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>建站成本</td><td class="tick">低，按月付费</td><td class="cross">数万元起</td></tr>
+          <tr><td>建站时间</td><td class="tick">约5分钟</td><td class="cross">2-4周</td></tr>
+          <tr><td>多语言支持</td><td class="tick">20+语言</td><td class="cross">人工翻译</td></tr>
+          <tr><td>接待效率</td><td class="tick">AI全程自动化</td><td class="cross">人工耗时</td></tr>
+          <tr><td>防同行套词</td><td class="tick">智销盾三级防御</td><td class="cross">无防护</td></tr>
+          <tr><td>获客方式</td><td class="tick">AI主动触达</td><td class="cross">被动等待</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 版本选择 -->
+  <div class="section mt16">
+    <div class="section-header">
+      <div class="sec-icon"></div>
+      <div class="sec-title">版本选择</div>
+      <div class="sec-subtitle">滑动查看 →</div>
+    </div>
+    <div class="plan-cards">
+      <div class="plan-card basic">
+        <div class="plan-head">
+          <div class="plan-name">基础版</div>
+          <div class="plan-en">Starter</div>
+        </div>
+        <div class="plan-body">
+          <div class="plan-feat">AI数字微店（10页）</div>
+          <div class="plan-feat">3种语言支持</div>
+          <div class="plan-feat">基础AI接待</div>
+          <div class="plan-feat">商机推荐10条/月</div>
+          <div class="plan-feat">SEO文章5篇/月</div>
+        </div>
+      </div>
+      <div class="plan-card standard">
+        <div class="plan-head">
+          <div class="plan-name">标准版</div>
+          <div class="plan-en">Standard</div>
+        </div>
+        <div class="plan-body">
+          <div class="plan-feat">AI数字微店（30页）</div>
+          <div class="plan-feat">8种语言支持</div>
+          <div class="plan-feat">智销盾接待系统</div>
+          <div class="plan-feat">商机推荐30条/月</div>
+          <div class="plan-feat">SEO文章20篇/月</div>
+        </div>
+      </div>
+      <div class="plan-card premium">
+        <div class="plan-head">
+          <div class="plan-name">高级版</div>
+          <div class="plan-en">Premium</div>
+        </div>
+        <div class="plan-body">
+          <div class="plan-feat">AI数字微店（60页）</div>
+          <div class="plan-feat">20+种语言</div>
+          <div class="plan-feat">全功能智销盾</div>
+          <div class="plan-feat">商机推荐80条/月</div>
+          <div class="plan-feat">SEO文章50篇/月</div>
+          <div class="plan-feat">智拓域全球商机引擎</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════ SECTION: 关于我们 ══════════════════ -->
+  <span class="section-anchor" id="sec-about"></span>
+  <div class="section mt16">
+    <div class="section-header">
+      <div class="sec-icon"></div>
+      <div class="sec-title">适合哪些企业？</div>
+    </div>
+    <div class="customer-cards">
+      <div class="cust-card">
+        <div class="cust-icon">🏭</div>
+        <div class="cust-name">工厂型企业</div>
+        <div class="cust-desc">有货无展示渠道，需快速上线数字窗口</div>
+      </div>
+      <div class="cust-card">
+        <div class="cust-icon">🔧</div>
+        <div class="cust-name">非标定制商</div>
+        <div class="cust-desc">产品差异化强，难以标准化展示</div>
+      </div>
+      <div class="cust-card">
+        <div class="cust-icon">🌏</div>
+        <div class="cust-name">外贸业务员</div>
+        <div class="cust-desc">个人接单，需要智能接待与防护工具</div>
+      </div>
+      <div class="cust-card">
+        <div class="cust-icon">💆</div>
+        <div class="cust-name">医美/服务业</div>
+        <div class="cust-desc">高获客成本，需防同行探子+精准留客</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 核心价值 -->
+  <div class="section mt16">
+    <div class="section-header">
+      <div class="sec-icon"></div>
+      <div class="sec-title">客户核心价值</div>
+    </div>
+    <div class="value-grid">
+      <div class="value-block">
+        <div class="vb-val">80%</div>
+        <div class="vb-lbl">释放销售前期接待工作量</div>
+      </div>
+      <div class="value-block">
+        <div class="vb-val">秒级</div>
+        <div class="vb-lbl">访客识别与智能响应速度</div>
+      </div>
+      <div class="value-block">
+        <div class="vb-val">全自动</div>
+        <div class="vb-lbl">社媒内容分发与私信触达</div>
+      </div>
+      <div class="value-block">
+        <div class="vb-val">可训练</div>
+        <div class="vb-lbl">学习真实话术风格持续进化</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3步上手 -->
+  <div class="section mt16">
+    <div class="section-header">
+      <div class="sec-icon"></div>
+      <div class="sec-title">3步快速上手</div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <div class="step-title">上传资料 · 5分钟建店</div>
+        <div class="step-desc">上传产品图/案例图/聊天记录/语音，AI自动生成多语言H5微店，随处可分享</div>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <div class="step-title">配置话术 · 开启智销盾</div>
+        <div class="step-desc">导入您咨询师的真实对话记录，AI学习话术风格，自动识别并拦截同行探子</div>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <div class="step-title">开启声呐推 · AI主动获客</div>
+        <div class="step-desc">一键铺量8大平台，AI扫描评论区识别高意向潜客，自动私信触达引入私域</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <div class="cta-title">立即开始<br>AI增长之旅</div>
+    <div class="cta-sub">免费试用 · 无需技术团队 · 5分钟上手</div>
+    <button class="cta-btn" id="ctaBottom">免费咨询 →</button>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="page-footer">
+    <div class="footer-logo"><span class="fc">缤</span>商</div>
+    <div class="footer-en">BINCIAL</div>
+    <div class="footer-slogan">AI驱动的外贸增长引擎</div>
+    <div class="footer-links">
+      <span>隐私政策</span>
+      <span>服务条款</span>
+      <span>联系我们</span>
+    </div>
+    <div class="footer-contact">
+      📧 contact@bincial.ai<br>
+      🌐 www.bincial.ai
+    </div>
+  </footer>
+
+</main>
+
+<!-- ===== AI CHAT WIDGET ===== -->
+<div class="float-btn" id="chatToggle">
+  <span>💬</span>
+  <span class="float-badge" id="chatBadge">1</span>
+</div>
+
+<div class="chat-window" id="chatWindow">
+  <div class="chat-header">
+    <div class="chat-header-left">
+      <div class="chat-avatar">缤</div>
+      <div>
+        <div class="chat-name">缤商 · AI智能接待</div>
+        <div class="chat-status"><span class="online-dot"></span>在线服务中</div>
+      </div>
+    </div>
+    <button class="chat-close" id="chatClose">✕</button>
+  </div>
+  <div class="chat-messages" id="chatMessages"></div>
+  <div class="chat-quick-btns" id="quickBtns">
+    <button class="quick-btn" data-q="你们能帮我解决获客的问题吗？">解决获客</button>
+    <button class="quick-btn" data-q="怎么防止同行套我们的方案和底价？">防同行</button>
+    <button class="quick-btn" data-q="AI接待会不会太死板，客户一看就知道不是真人？">AI像真人吗</button>
+    <button class="quick-btn" data-q="大概多少费用？">费用怎么算</button>
+  </div>
+  <div class="chat-input-row">
+    <input class="chat-input" id="chatInput" type="text" placeholder="输入您的问题…" maxlength="200">
+    <button class="chat-send" id="chatSend">发送</button>
+  </div>
+</div>
+
+<style>
+.float-btn {
+  position: fixed; right: 16px; bottom: 28px;
+  width: 52px; height: 52px; border-radius: 50%;
+  background: linear-gradient(135deg,#00C9A7,#1A6B8A);
+  box-shadow: 0 4px 18px rgba(0,201,167,0.45);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px; cursor: pointer; z-index: 300;
+  animation: pulse 2.5s infinite; user-select: none; position: fixed;
+}
+.float-badge {
+  position: absolute; top: -2px; right: -2px;
+  width: 18px; height: 18px; border-radius: 50%;
+  background: #FF4757; color: #fff;
+  font-size: 10px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  border: 2px solid #fff;
+}
+@keyframes pulse {
+  0%,100%{ box-shadow:0 4px 18px rgba(0,201,167,0.4); transform:scale(1); }
+  50%{ box-shadow:0 6px 26px rgba(0,201,167,0.65); transform:scale(1.06); }
+}
+.chat-window {
+  position: fixed; right: 12px; bottom: 92px;
+  width: calc(100vw - 24px); max-width: 360px;
+  height: 530px; max-height: calc(100vh - 120px);
+  background: #fff; border-radius: 20px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.18);
+  display: flex; flex-direction: column;
+  z-index: 299; overflow: hidden;
+  transform: scale(0.92) translateY(12px);
+  opacity: 0; pointer-events: none;
+  transition: all 0.25s cubic-bezier(0.34,1.56,0.64,1);
+  transform-origin: bottom right;
+}
+.chat-window.open { transform: scale(1) translateY(0); opacity: 1; pointer-events: auto; }
+.chat-header {
+  background: linear-gradient(135deg,#0D1B2A,#1A3A50);
+  padding: 14px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;
+}
+.chat-header-left { display: flex; align-items: center; gap: 10px; }
+.chat-avatar {
+  width: 38px; height: 38px; border-radius: 10px;
+  background: linear-gradient(135deg,#00C9A7,#1A6B8A);
+  color: #fff; font-size: 16px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+}
+.chat-name { font-size: 13px; font-weight: 700; color: #fff; }
+.chat-status { font-size: 10px; color: rgba(255,255,255,0.6); display:flex; align-items:center; gap:4px; margin-top:2px; }
+.online-dot { width:6px; height:6px; border-radius:50%; background:#00C9A7; animation: blink 1.5s infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+.chat-close { background:none; border:none; color:rgba(255,255,255,0.5); font-size:16px; cursor:pointer; padding:4px 8px; }
+.chat-messages {
+  flex:1; overflow-y:auto; padding:14px 12px;
+  display:flex; flex-direction:column; gap:10px;
+  background:#F8FAFB; scroll-behavior:smooth;
+}
+.chat-messages::-webkit-scrollbar { width:3px; }
+.chat-messages::-webkit-scrollbar-thumb { background:#ddd; border-radius:2px; }
+.msg { display:flex; gap:8px; align-items:flex-end; }
+.msg.bot { flex-direction:row; }
+.msg.user { flex-direction:row-reverse; }
+.msg-avatar {
+  width:28px; height:28px; border-radius:8px; flex-shrink:0;
+  background:linear-gradient(135deg,#00C9A7,#1A6B8A);
+  color:#fff; font-size:12px; font-weight:700;
+  display:flex; align-items:center; justify-content:center;
+}
+.msg-bubble { max-width:80%; padding:10px 13px; border-radius:14px; font-size:13px; line-height:1.65; }
+.msg.bot .msg-bubble { background:#fff; color:#222; border-bottom-left-radius:4px; box-shadow:0 1px 6px rgba(0,0,0,0.07); }
+.msg.user .msg-bubble { background:linear-gradient(135deg,#00C9A7,#1A6B8A); color:#fff; border-bottom-right-radius:4px; }
+.msg-time { font-size:9px; color:#bbb; flex-shrink:0; align-self:flex-end; }
+.typing-dots { display:flex; gap:4px; padding:4px 2px; }
+.typing-dots span { width:7px; height:7px; border-radius:50%; background:#ccc; animation:bounce 1.2s infinite; }
+.typing-dots span:nth-child(2){ animation-delay:.2s; }
+.typing-dots span:nth-child(3){ animation-delay:.4s; }
+@keyframes bounce { 0%,80%,100%{transform:translateY(0)} 40%{transform:translateY(-6px)} }
+.chat-quick-btns { padding:8px 12px 4px; display:flex; gap:6px; flex-wrap:wrap; background:#F8FAFB; border-top:1px solid #F0F0F0; flex-shrink:0; }
+.quick-btn { font-size:11px; color:#1A6B8A; background:rgba(26,107,138,0.08); border:1px solid rgba(26,107,138,0.2); border-radius:12px; padding:4px 11px; cursor:pointer; white-space:nowrap; transition:all 0.15s; }
+.quick-btn:active { background:#1A6B8A; color:#fff; }
+.chat-input-row { display:flex; gap:8px; padding:10px 12px; border-top:1px solid #EFEFEF; background:#fff; flex-shrink:0; }
+.chat-input { flex:1; border:1.5px solid #E8E8E8; border-radius:20px; padding:8px 14px; font-size:13px; outline:none; font-family:inherit; background:#F8FAFB; transition:border-color 0.2s; }
+.chat-input:focus { border-color:#00C9A7; background:#fff; }
+.chat-send { background:linear-gradient(135deg,#00C9A7,#1A6B8A); color:#fff; border:none; border-radius:20px; padding:8px 16px; font-size:13px; font-weight:600; cursor:pointer; }
+</style>
+
+<script>
+// =============================================
+// TAB 导航：锚点跳转 + 滚动自动高亮
+// =============================================
+const tabs = document.querySelectorAll('.tab-item');
+const sections = ['sec-home','sec-products','sec-compare','sec-about'];
+const HEADER_H = 98; // fixed header + tab nav height
+
+tabs.forEach(tab => {
+  tab.addEventListener('click', function() {
+    const target = document.getElementById(this.dataset.target);
+    if (!target) return;
+    // 精确滚动到锚点位置
+    const top = target.getBoundingClientRect().top + window.scrollY - HEADER_H + 1;
+    window.scrollTo({ top, behavior: 'smooth' });
+    tabs.forEach(t => t.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+
+// 滚动时自动高亮对应Tab
+window.addEventListener('scroll', () => {
+  let current = sections[0];
+  for (const id of sections) {
+    const el = document.getElementById(id);
+    if (!el) continue;
+    const top = el.getBoundingClientRect().top;
+    if (top <= HEADER_H + 40) current = id;
+  }
+  tabs.forEach(tab => {
+    tab.classList.toggle('active', tab.dataset.target === current);
+  });
+}, { passive: true });
+
+// =============================================
+// AI 聊天知识库（基于真实销售对话训练）
+// 话术逻辑：确认需求 → 切痛点 → 场景化介绍 → 推进转化
+// =============================================
+const CONV_STATE = { stage: 0, industry: '' };
+
+// 关键词匹配规则
+const KB = [
+  // —— 获客 ——
+  {
+    keys: ['获客','客户','引流','流量','没人','进来'],
+    ans: `您说到点子上了。获客难现在是每家都头疼的问题。\n\n我们的做法和普通投流不一样——我们是"精准狙击"，不是"广撒网"。\n\n**声呐推**会让AI自动扫描各大社媒平台的评论区，识别那些主动问"哪里有""推荐吗""在哪买"的高意向用户，然后主动私信触达，把他们引到您的专属小店里。\n\n进店之后，AI接待会自动和他聊，聊到关键节点（问效果、问价格）就弹出预约/留资入口，线索实时推到您手机上。\n\n您现在主要是哪个渠道在做推广？我帮您看看怎么接上。`,
+  },
+  // —— 防同行/套方案 ——
+  {
+    keys: ['同行','探子','套','底价','泄露','价格','方案'],
+    ans: `张总这个问题太典型了，我们做医美、外贸的客户都深受其苦。\n\n我们有个功能叫**"智销盾"**——三级防御体系：\n\n**① 身份侦测**：AI通过话术和行为逻辑自动研判。正常客户问"疼不疼""能维持多久"，同行会直接问"你们最近促销多少钱""用什么仪器"——AI一眼就识别出来。\n\n**② 防守释放**：遇到敏感价格/方案，AI不直接给，会反向博弈："建议先来店做个免费检测，我们院长为您精准评估。"\n\n**③ 精准过滤**：判定是同行后，AI启动闭环模式，核心底牌一个字不露，后台同步给您标记"疑似同行来访"。\n\n您平时遇到最多的是哪种探法？我帮您配置针对性话术。`,
+  },
+  // —— AI像真人/AI死板 ——
+  {
+    keys: ['死板','真人','机器','智能','傻','像不像','感觉'],
+    ans: `您这个担心很正常，大多数AI接待确实是"问啥答啥"的导购模式。\n\n我们不一样的地方是——**AI可以学习您咨询师的真实风格**。\n\n您把平时和客户的聊天记录导进去，AI会学习每个人的语调、用词习惯和专业深度。比如：\n- 王咨询师比较温柔，AI就多用"亲爱的、别担心"\n- 李咨询师比较专业直接，AI就用"根据您的情况，我建议..."\n\n哪怕您在睡觉，客户感觉就是在和"王咨询师本人"聊，信任感完全不同，转化率自然也不同。\n\n您们店现在有几个咨询师？我帮您评估一下训练方案。`,
+  },
+  // —— 费用/价格/成本 ——
+  {
+    keys: ['费用','价格','多少钱','收费','成本','报价','贵'],
+    ans: `您算笔账：一个咨询师一个月工资加提成 8000-10000，能有效接待多少客户？\n\n用缤商，相当于花咨询师 **1/10 的成本**，养了一支 7×24 小时、不会累、不会跳槽、也不会泄露商业机密的 AI 销售团队。\n\n我们有三个版本：\n- **基础版**：入门体验，含AI微店+基础接待\n- **标准版**：主流选择，含智销盾防御+商机推荐\n- **高级版**：全功能旗舰，含声呐推全渠道+智拓域商机引擎\n\n具体根据您的业务规模有定制方案。我建议您先**免费搭一个测试版**，让您团队实际用几天，效果满意了再谈后续，怎么样？`,
+  },
+  // —— 建站/小店/展示 ——
+  {
+    keys: ['小店','建站','网站','展示','微店','H5','朋友圈','系统'],
+    ans: `您现在只靠朋友圈发图，确实不够系统——没有专属展示空间，客户信任感也上不来。\n\n**客应云**可以解决这个问题：\n\n您把项目介绍、医生资质、案例对比图、客户好评截图——这些零散的东西——全部一键导入，我们 AI 5分钟帮您生成一个专业的 H5 多语言小店。\n\n支持微信、小红书、TikTok、Instagram 随处分享，而且不只是展示，还内置了 AI 接待，客人进来就有人接，不会白白跑掉。\n\n您现在有没有一些项目介绍或者案例图？我可以帮您先出一个示例效果看看。`,
+  },
+  // —— 效果/保证/投流踩过坑 ——
+  {
+    keys: ['效果','保证','投过','没用','转化','成交','试试'],
+    ans: `您以前投抖音没效果，主要是因为"硬广"太明显，算法不推、用户也不信。\n\n我们的逻辑完全不同——AI生成的是**"价值型内容"**，比如"如何判断自己适合哪种水光针""医生教你三招避开医美陷阱"，这种内容吸引的，是真正在做功课、有消费意向的潜在客户。\n\n而且 AI 会自动识别评论区里"我也想问""这个店在哪里""能私信吗"的高意向用户，主动触达，不是坐等。\n\n我的建议是——**先免费试用**，不满意不收费。您这边方便的话，告诉我您的微信，我给您出一个针对您店的完整方案演示，15分钟就能看清楚。`,
+  },
+  // —— 医美行业/专业性 ——
+  {
+    keys: ['医美','皮肤','美容','专业','行业','整形','水光','嫩肤'],
+    ans: `医美行业我们已经服务过不少连锁和单体门店了，非常理解您说的专业性问题。\n\n我们的 AI 是**可训练的**：\n- 您把咨询师常用的专业话术、FAQ、医生意见导入系统，AI 全部消化吸收\n- 我们的行业知识库已经覆盖了医美、皮肤管理、轻医美细分领域，开箱即用，您只需微调\n- 遇到涉及个人皮肤状况的敏感问题，AI 会自动引导到"来店免费检测"，不乱给建议\n\n您们店目前主要做哪些项目？我帮您针对性地看看知识库配置思路。`,
+  },
+  // —— 怎么开始/流程/试用 ——
+  {
+    keys: ['怎么','开始','试用','流程','上手','操作','注册','加微信','联系'],
+    ans: `很简单，三步上手：\n\n**① 我加您微信**，给您发一个15分钟的产品演示视频，您先看看全貌\n\n**② 您提供基础资料**——项目介绍、几张案例图、一段常用话术，我这边帮您**免费搭建测试版小店**\n\n**③ 您和团队实际用几天**，看看 AI 接待的真实效果，满意了再谈后续\n\n零风险，效果不满意不推进。\n\n您方便告诉我您的联系方式吗？或者也可以直接发邮件到 **contact@bincial.ai**，我这边安排专属顾问跟您对接。`,
+  },
+];
+
+function getReply(text) {
+  const t = text.toLowerCase();
+  for (const item of KB) {
+    if (item.keys.some(k => t.includes(k))) return item.ans;
+  }
+  // fallback：引导提问
+  return `您说的"${text}"这个情况，我需要多了解一点才能给您准确的建议。\n\n您主要是想解决哪个问题——\n· **获客难**（流量少、成本高）\n· **接待乱**（咨询师水平不齐、被同行套方案）\n· **展示弱**（没有专业的线上展示窗口）\n\n您说一下，我帮您重点介绍对应的解决方案。`;
+}
+
+// =============================================
+// CHAT UI 逻辑
+// =============================================
+const chatWindow = document.getElementById('chatWindow');
+const chatToggle = document.getElementById('chatToggle');
+const chatClose  = document.getElementById('chatClose');
+const chatMessages = document.getElementById('chatMessages');
+const chatInput  = document.getElementById('chatInput');
+const chatSend   = document.getElementById('chatSend');
+const chatBadge  = document.getElementById('chatBadge');
+const quickBtns  = document.getElementById('quickBtns');
+let opened = false;
+
+function openChat() {
+  opened = true;
+  chatWindow.classList.add('open');
+  chatBadge.style.display = 'none';
+  setTimeout(() => chatInput.focus(), 300);
+}
+function closeChat() { chatWindow.classList.remove('open'); }
+
+chatToggle.addEventListener('click', () => opened ? closeChat() : openChat());
+chatClose.addEventListener('click', closeChat);
+
+// 顶部/底部CTA按钮也打开聊天
+document.getElementById('ctaTop').addEventListener('click', openChat);
+document.getElementById('ctaBottom').addEventListener('click', openChat);
+
+function timeStr() {
+  const d = new Date();
+  return d.getHours().toString().padStart(2,'0') + ':' + d.getMinutes().toString().padStart(2,'0');
+}
+
+function addMsg(text, role) {
+  const wrap = document.createElement('div');
+  wrap.className = 'msg ' + role;
+  const html = text
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\n/g, '<br>');
+  if (role === 'bot') {
+    wrap.innerHTML = `<div class="msg-avatar">缤</div><div><div class="msg-bubble">${html}</div><div class="msg-time">${timeStr()}</div></div>`;
+  } else {
+    wrap.innerHTML = `<div><div class="msg-bubble">${html}</div><div class="msg-time" style="text-align:right">${timeStr()}</div></div>`;
+  }
+  chatMessages.appendChild(wrap);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+function addTyping() {
+  const wrap = document.createElement('div');
+  wrap.className = 'msg bot'; wrap.id = 'typing';
+  wrap.innerHTML = `<div class="msg-avatar">缤</div><div class="msg-bubble"><div class="typing-dots"><span></span><span></span><span></span></div></div>`;
+  chatMessages.appendChild(wrap);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+function removeTyping() { const t = document.getElementById('typing'); if(t) t.remove(); }
+
+function sendMsg(text) {
+  if (!text.trim()) return;
+  quickBtns.style.display = 'none';
+  addMsg(text, 'user');
+  chatInput.value = '';
+  addTyping();
+  // 模拟真人打字延迟（600-1400ms 随机）
+  const delay = 700 + Math.random() * 700;
+  setTimeout(() => { removeTyping(); addMsg(getReply(text), 'bot'); }, delay);
+}
+
+chatSend.addEventListener('click', () => sendMsg(chatInput.value));
+chatInput.addEventListener('keydown', e => { if (e.key === 'Enter') sendMsg(chatInput.value); });
+document.querySelectorAll('.quick-btn').forEach(btn => {
+  btn.addEventListener('click', function() { sendMsg(this.dataset.q); });
+});
+
+// 初始欢迎语（模拟真人打招呼风格）
+setTimeout(() => {
+  addMsg('您好！看到您在了解缤商的产品，我是这边的接待同事 😊\n\n请问您主要是想解决**获客的问题**，还是想先了解一下我们能帮您做**AI智能小店**？\n\n您简单说说您的业务类型，我帮您针对性介绍，不浪费您时间。', 'bot');
+}, 500);
+</script>
+</body>
+</html>
