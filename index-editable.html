@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title id="pageTitle"></title>
+
+<!-- ============================================================
+  ██████╗ ██████╗ ███╗   ██╗███████╗██╗ ██████╗
+  ██╔════╝██╔═══██╗████╗  ██║██╔════╝██║██╔════╝
+  ██║     ██║   ██║██╔██╗ ██║█████╗  ██║██║  ███╗
+  ██║     ██║   ██║██║╚██╗██║██╔══╝  ██║██║   ██║
+  ╚██████╗╚██████╔╝██║ ╚████║██║     ██║╚██████╔╝
+
+  ⬇️  所有可修改的文字内容都在下方 CONFIG 区域
+  ⬇️  修改后保存刷新即可，无需动其他代码
+============================================================ -->
+<script>
+const CONFIG = {
+
+  /* ── 基础信息 ─────────────────────────────────── */
+  pageTitle:    "缤商 Bincial · AI驱动的外贸增长引擎",
+  logoChar:     "缤",           // 导航左上角 logo 字符
+  brandCN:      "缤商",         // 中文品牌名
+  brandEN:      "BINCIAL",      // 英文品牌名（导航 en 小字 & 页脚）
+  headerBtn:    "免费体验",      // 右上角按钮文字
+
+  /* ── Hero 横幅 ────────────────────────────────── */
+  heroTag:      "AI · 外贸增长引擎",
+  heroTitle:    "让AI替你\n找客户、接客户、留住客户",   // \n 换行
+  heroSub:      "智能建站 · AI接待防护 · 全球声呐获客",
+
+  /* ── 公司名片卡片 ──────────────────────────────── */
+  companyName:  "缤商",
+  companyEN:    "Bincial",
+  companyAvatar:"缤",           // 公司头像显示字符
+  badges:       ["AI驱动", "外贸专属", "全球化"],   // 最多3个标签
+  stats: [
+    { val: "8+",    unit: "",   lbl: "覆盖平台" },
+    { val: "20+",   unit: "",   lbl: "语言支持" },
+    { val: "7×24",  unit: "",   lbl: "AI接待" },
+  ],
+  companyDesc:  "缤商专为外贸企业打造AI增长工具矩阵，帮助企业快速建立数字化展示窗口，实现AI智能销售接待与全球主动获客，让您的业务在全球市场持续增长。",
+
+  /* ── Tab 导航 ─────────────────────────────────── */
+  tabs: [
+    { label: "首页",     target: "sec-home" },
+    { label: "产品",     target: "sec-products" },
+    { label: "对比",     target: "sec-compare" },
+    { label: "关于",     target: "sec-about" },
+  ],
+
+  /* ── 行业痛点 ─────────────────────────────────── */
+  painTitle: "外贸人的4大困境",
+  pains: [
+    { icon: "😴", title: "守株待兔", desc: "平台引流成本越来越高，只能等买家搜到你" },
+    { icon: "🎭", title: "同行套词", desc: "竞争对手伪装客户，套取底价方案大量时间" },
+    { icon: "🌐", title: "语言壁垒", desc: "多语言内容本地化耗时费力，海外买家难沟通" },
+    { icon: "📉", title: "线索质量差", desc: "大量无效询盘消耗精力，真实买家反而流失" },
+  ],
+
+  /* ── 三大产品 ─────────────────────────────────── */
+  products: [
+    {
+      id:       "p1",
+      icon:     "🏪",
+      tag:      "产品一",
+      name:     "客应云",
+      nameEN:   "AI Digital Store",
+      tagline:  "5分钟建一个会说话的专业外贸小店",
+      features: [
+        "零散资料一键导入，AI自动生成H5多语言微店",
+        "20+语言自动翻译，全球买家无障碍浏览",
+        "随处可分享（微信/邮件/WhatsApp/社媒）",
+        "支持产品图、案例、证书、视频全场景展示",
+      ],
+      stats: [
+        { val: "5", unit: "分钟", lbl: "完成建站" },
+        { val: "20+", unit: "", lbl: "语言支持" },
+        { val: "60", unit: "页", lbl: "最多展示" },
+      ],
+      // SVG 示意图不在此配置，保持原始代码
+    },
+    {
+      id:       "p2",
+      icon:     "🛡️",
+      tag:      "产品二",
+      name:     "智销盾",
+      nameEN:   "AI Sales Guard",
+      tagline:  "释放80%以上前期接待，专注高价值客户",
+      features: [
+        "AI全程接待，7×24小时不间断响应全球询盘",
+        "三级防御：屏蔽同行探词 / 观察低意向 / 优先高价值",
+        "将非标销售场景流程化、标准化，越用越聪明",
+        "线索实时推送，重要客户一秒触达销售",
+      ],
+      stats: [
+        { val: "80%", unit: "", lbl: "接待自动化" },
+        { val: "3级", unit: "", lbl: "防御体系" },
+        { val: "秒级", unit: "", lbl: "响应速度" },
+      ],
+    },
+    {
+      id:       "p3",
+      icon:     "📡",
+      tag:      "产品三",
+      name:     "声呐推",
+      nameEN:   "AI Sonar Reach",
+      tagline:  "AI主动扫描全球社媒，找到真实买家",
+      features: [
+        "内容一键分发至LinkedIn/Facebook/Instagram等8大平台",
+        "AI扫描帖子评论区，识别潜在买家意图",
+        "潜客自动入库，AI私信主动触达",
+        "全自动获客闭环，无需人工逐条操作",
+      ],
+      stats: [
+        { val: "8+", unit: "", lbl: "覆盖平台" },
+        { val: "AI", unit: "", lbl: "自动识别" },
+        { val: "24h", unit: "", lbl: "全天运行" },
+      ],
+      platforms: ["LinkedIn","Facebook","Instagram","Twitter/X","TikTok","YouTube","WhatsApp","Telegram"],
+    },
+  ],
+
+  /* ── 方案对比表 ────────────────────────────────── */
+  compareTitle: "缤商 vs 传统方式",
+  compareRows: [
+    { item: "建站成本",   ours: "低，按月付费",    theirs: "数万元起" },
+    { item: "建站时间",   ours: "约5分钟",          theirs: "2-4周" },
+    { item: "多语言支持", ours: "20+语言",           theirs: "人工翻译" },
+    { item: "接待效率",   ours: "AI全程自动化",      theirs: "人工耗时" },
+    { item: "防同行套词", ours: "智销盾三级防御",    theirs: "无防护" },
+    { item: "获客方式",   ours: "AI主动触达",        theirs: "被动等待" },
+  ],
+  ourLabel:    "缤商 Bincial",
+  theirLabel:  "传统方式",
+
+  /* ── 版本选择 ─────────────────────────────────── */
+  plansTitle: "版本选择",
+  plans: [
+    {
+      name:  "基础版", nameEN: "Starter", tier: "basic",
+      feats: ["AI数字微店（10页）","3种语言支持","基础AI接待","商机推荐10条/月","SEO文章5篇/月"],
+    },
+    {
+      name:  "标准版", nameEN: "Standard", tier: "standard",
+      feats: ["AI数字微店（30页）","8种语言支持","智销盾接待系统","商机推荐30条/月","SEO文章20篇/月"],
+    },
+    {
+      name:  "高级版", nameEN: "Premium", tier: "premium",
+      feats: ["AI数字微店（60页）","20+种语言","全功能智销盾","商机推荐80条/月","SEO文章50篇/月","智拓域全球商机引擎"],
+    },
+  ],
+
+  /* ── 适合哪些企业 ──────────────────────────────── */
+  aboutTitle: "适合哪些企业？",
+  customers: [
+    { icon: "🏭", name: "工厂型企业",   desc: "有货无展示渠道，需快速上线数字窗口" },
+    { icon: "🔧", name: "非标定制商",   desc: "产品差异化强，难以标准化展示" },
+    { icon: "🌏", name: "外贸业务员",   desc: "个人接单，需要智能接待与防护工具" },
+    { icon: "💆", name: "医美/服务业",  desc: "高获客成本，需防同行探子+精准留客" },
+  ],
+
+  /* ── 客户核心价值 ──────────────────────────────── */
+  valuesTitle: "客户核心价值",
+  values: [
+    { val: "80%",  lbl: "释放销售前期接待工作量" },
+    { val: "秒级", lbl: "访客识别与智能响应速度" },
+    { val: "全自动", lbl: "社媒内容分发与私信触达" },
+    { val: "可训练", lbl: "学习真实话术风格持续进化" },
+  ],
+
+  /* ── 3步上手 ──────────────────────────────────── */
+  stepsTitle: "3步快速上手",
+  steps: [
+    { title: "上传资料 · 5分钟建店", desc: "上传产品图/案例图/聊天记录/语音，AI自动生成多语言H5微店，随处可分享" },
+    { title: "配置话术 · 开启智销盾", desc: "导入您咨询师的真实对话记录，AI学习话术风格，自动识别并拦截同行探子" },
+    { title: "开启声呐推 · AI主动获客", desc: "一键铺量8大平台，AI扫描评论区识别高意向潜客，自动私信触达引入私域" },
+  ],
+
+  /* ── CTA 区块 ─────────────────────────────────── */
+  ctaTitle:  "立即开始\nAI增长之旅",
+  ctaSub:    "免费试用 · 无需技术团队 · 5分钟上手",
+  ctaBtn:    "免费咨询 →",
+
+  /* ── 页脚 ────────────────────────────────────── */
+  footerLinks:   ["隐私政策","服务条款","联系我们"],
+  footerEmail:   "contact@bincial.ai",
+  footerWeb:     "www.bincial.ai",
+  footerSlogan:  "AI驱动的外贸增长引擎",
+
+  /* ── AI 聊天接待 ──────────────────────────────── */
+  chat: {
+    botName:   "缤商 · AI智能接待",
+    botAvatar: "缤",
+    welcome:   "您好！看到您在了解缤商的产品，我是这边的接待同事 😊\n\n请问您主要是想解决**获客的问题**，还是想先了解一下我们能帮您做**AI智能小店**？\n\n您简单说说您的业务类型，我帮您针对性介绍，不浪费您时间。",
+    quickBtns: [
+      { label: "解决获客",   q: "你们能帮我解决获客的问题吗？" },
+      { label: "防同行",     q: "怎么防止同行套我们的方案和底价？" },
+      { label: "AI像真人吗", q: "AI接待会不会太死板，客户一看就知道不是真人？" },
+      { label: "费用怎么算", q: "大概多少费用？" },
+    ],
+    // 知识库：keys（关键词数组）命中时回复 ans
+    kb: [
+      {
+        keys: ["获客","客户","引流","流量","没人","进来"],
+        ans:  "您说到点子上了。获客难现在是每家都头疼的问题。\n\n我们的做法和普通投流不一样——我们是「精准狙击」，不是「广撒网」。\n\n**声呐推**会让AI自动扫描各大社媒平台的评论区，识别那些主动问「哪里有」「推荐吗」「在哪买」的高意向用户，然后主动私信触达，把他们引到您的专属小店里。\n\n进店之后，AI接待会自动和他聊，聊到关键节点（问效果、问价格）就弹出预约/留资入口，线索实时推到您手机上。\n\n您现在主要是哪个渠道在做推广？我帮您看看怎么接上。",
+      },
+      {
+        keys: ["同行","探子","套","底价","泄露","价格","方案"],
+        ans:  "这个问题太典型了，我们做医美、外贸的客户都深受其苦。\n\n我们有个功能叫**「智销盾」**——三级防御体系：\n\n**① 身份侦测**：AI通过话术和行为逻辑自动研判。正常客户问「疼不疼」「能维持多久」，同行会直接问「你们最近促销多少钱」「用什么仪器」——AI一眼就识别出来。\n\n**② 防守释放**：遇到敏感价格/方案，AI不直接给，会反向博弈：「建议先来店做个免费检测，我们院长为您精准评估。」\n\n**③ 精准过滤**：判定是同行后，AI启动闭环模式，核心底牌一个字不露，后台同步给您标记「疑似同行来访」。\n\n您平时遇到最多的是哪种探法？我帮您配置针对性话术。",
+      },
+      {
+        keys: ["死板","真人","机器","智能","傻","像不像","感觉"],
+        ans:  "您这个担心很正常，大多数AI接待确实是「问啥答啥」的导购模式。\n\n我们不一样的地方是——**AI可以学习您咨询师的真实风格**。\n\n您把平时和客户的聊天记录导进去，AI会学习每个人的语调、用词习惯和专业深度。比如：\n- 王咨询师比较温柔，AI就多用「亲爱的、别担心」\n- 李咨询师比较专业直接，AI就用「根据您的情况，我建议...」\n\n哪怕您在睡觉，客户感觉就是在和「王咨询师本人」聊，信任感完全不同，转化率自然也不同。\n\n您们店现在有几个咨询师？我帮您评估一下训练方案。",
+      },
+      {
+        keys: ["费用","价格","多少钱","收费","成本","报价","贵"],
+        ans:  "您算笔账：一个咨询师一个月工资加提成 8000-10000，能有效接待多少客户？\n\n用缤商，相当于花咨询师 **1/10 的成本**，养了一支 7×24 小时、不会累、不会跳槽、也不会泄露商业机密的 AI 销售团队。\n\n我们有三个版本：\n- **基础版**：入门体验，含AI微店+基础接待\n- **标准版**：主流选择，含智销盾防御+商机推荐\n- **高级版**：全功能旗舰，含声呐推全渠道+智拓域商机引擎\n\n具体根据您的业务规模有定制方案。我建议您先**免费搭一个测试版**，让您团队实际用几天，效果满意了再谈后续，怎么样？",
+      },
+      {
+        keys: ["小店","建站","网站","展示","微店","H5","朋友圈","系统"],
+        ans:  "您现在只靠朋友圈发图，确实不够系统——没有专属展示空间，客户信任感也上不来。\n\n**客应云**可以解决这个问题：\n\n您把项目介绍、医生资质、案例对比图、客户好评截图——这些零散的东西——全部一键导入，我们 AI 5分钟帮您生成一个专业的 H5 多语言小店。\n\n支持微信、小红书、TikTok、Instagram 随处分享，而且不只是展示，还内置了 AI 接待，客人进来就有人接，不会白白跑掉。\n\n您现在有没有一些项目介绍或者案例图？我可以帮您先出一个示例效果看看。",
+      },
+      {
+        keys: ["效果","保证","投过","没用","转化","成交","试试"],
+        ans:  "您以前投抖音没效果，主要是因为「硬广」太明显，算法不推、用户也不信。\n\n我们的逻辑完全不同——AI生成的是**「价值型内容」**，比如「如何判断自己适合哪种水光针」「医生教你三招避开医美陷阱」，这种内容吸引的，是真正在做功课、有消费意向的潜在客户。\n\n而且 AI 会自动识别评论区里「我也想问」「这个店在哪里」「能私信吗」的高意向用户，主动触达，不是坐等。\n\n我的建议是——**先免费试用**，不满意不收费。您这边方便的话，告诉我您的微信，我给您出一个针对您店的完整方案演示，15分钟就能看清楚。",
+      },
+      {
+        keys: ["怎么","开始","试用","流程","上手","操作","注册","加微信","联系"],
+        ans:  "很简单，三步上手：\n\n**① 我加您微信**，给您发一个15分钟的产品演示视频，您先看看全貌\n\n**② 您提供基础资料**——项目介绍、几张案例图、一段常用话术，我这边帮您**免费搭建测试版小店**\n\n**③ 您和团队实际用几天**，看看 AI 接待的真实效果，满意了再谈后续\n\n零风险，效果不满意不推进。\n\n您方便告诉我您的联系方式吗？或者也可以直接发邮件到 **contact@bincial.ai**，我这边安排专属顾问跟您对接。",
+      },
+    ],
+    fallback: "您说的这个情况，我需要多了解一点才能给您准确的建议。\n\n您主要是想解决哪个问题——\n· **获客难**（流量少、成本高）\n· **接待乱**（咨询师水平不齐、被同行套方案）\n· **展示弱**（没有专业的线上展示窗口）\n\n您说一下，我帮您重点介绍对应的解决方案。",
+  },
+
+}; // ← CONFIG 结束
+/* ============================================================
+   以下为页面渲染逻辑，通常不需要修改
+============================================================ */
+</script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 14px; -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
+    background: #F5F7FA; color: #1A1A2E;
+    min-height: 100vh; max-width: 480px; margin: 0 auto; position: relative;
+  }
+  .top-bar {
+    position: fixed; top: 0; left: 50%; transform: translateX(-50%);
+    width: 100%; max-width: 480px; z-index: 100;
+    background: rgba(13,27,42,0.95); backdrop-filter: blur(12px);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 16px;
+    border-bottom: 1px solid rgba(0,201,167,0.18);
+  }
+  .brand { display: flex; align-items: center; gap: 8px; }
+  .logo-icon {
+    width: 32px; height: 32px;
+    background: linear-gradient(135deg,#00C9A7,#1A6B8A);
+    border-radius: 8px; display: flex; align-items: center; justify-content: center;
+    font-size: 16px; color: #fff; font-weight: 700;
+    box-shadow: 0 0 10px rgba(0,201,167,0.4);
+  }
+  .brand-name { font-size: 15px; font-weight: 700; color: #fff; line-height: 1.2; }
+  .brand-name .en { font-size: 10px; color: #00C9A7; letter-spacing: 1px; display: block; }
+  .header-actions { display: flex; align-items: center; gap: 8px; }
+  .contact-btn {
+    font-size: 12px; font-weight: 600;
+    background: linear-gradient(135deg,#00C9A7,#1A6B8A);
+    color: #fff; border: none; border-radius: 16px;
+    padding: 6px 14px; cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,201,167,0.35);
+  }
+  .tab-nav {
+    position: fixed; top: 52px; left: 50%; transform: translateX(-50%);
+    width: 100%; max-width: 480px; z-index: 99;
+    background: rgba(13,27,42,0.97);
+    display: flex; border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  .tab-item {
+    flex: 1; text-align: center; padding: 10px 0 8px;
+    font-size: 12px; color: rgba(255,255,255,0.45);
+    cursor: pointer; position: relative; transition: color 0.2s;
+    white-space: nowrap;
+  }
+  .tab-item.active { color: #00C9A7; }
+  .tab-item.active::after {
+    content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 28px; height: 2px;
+    background: linear-gradient(90deg,#00C9A7,#1A6B8A); border-radius: 1px;
+  }
+  .content-wrap { padding-top: 98px; padding-bottom: 80px; }
+  .section-anchor {
+    display: block; height: 0;
+    margin-top: -98px; padding-top: 98px;
+    visibility: hidden; pointer-events: none;
+  }
+  .hero-banner { position: relative; width: 100%; height: 210px; overflow: hidden; }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg,#0D1B2A 0%,#1A3A50 40%,#0D4D4A 100%);
+  }
+  .hero-bg::before {
+    content: ''; position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(0,201,167,0.07) 1px, transparent 1px),
+      linear-gradient(90deg,rgba(0,201,167,0.07) 1px, transparent 1px);
+    background-size: 30px 30px;
+  }
+  .glow1 { position: absolute; top:-30px; right:-20px; width: 140px; height: 140px; border-radius: 50%; background: radial-gradient(circle,rgba(0,201,167,0.22) 0%,transparent 70%); }
+  .glow2 { position: absolute; bottom:-20px; left: 10px; width: 110px; height: 110px; border-radius: 50%; background: radial-gradient(circle,rgba(26,107,138,0.3) 0%,transparent 70%); }
+  .hero-content { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; padding: 0 22px; }
+  .hero-tag { font-size: 10px; font-weight: 600; letter-spacing: 1.5px; color: #00C9A7; background: rgba(0,201,167,0.12); border: 1px solid rgba(0,201,167,0.3); border-radius: 4px; padding: 2px 8px; margin-bottom: 10px; text-transform: uppercase; }
+  .hero-title { font-size: 26px; font-weight: 800; color: #fff; line-height: 1.2; margin-bottom: 8px; white-space: pre-line; }
+  .hero-title .hl { color: #00C9A7; }
+  .hero-sub { font-size: 12px; color: rgba(255,255,255,0.6); line-height: 1.6; }
+  .company-info-card { margin: -24px 16px 0; background: #fff; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); padding: 20px 18px 16px; position: relative; z-index: 5; }
+  .company-name-row { display: flex; align-items: flex-start; gap: 14px; }
+  .avatar-box { width: 52px; height: 52px; flex-shrink: 0; border-radius: 12px; background: linear-gradient(135deg,#0D1B2A,#1A6B8A); display: flex; align-items: center; justify-content: center; font-size: 22px; color: #00C9A7; font-weight: 800; box-shadow: 0 2px 12px rgba(26,107,138,0.3); }
+  .company-meta { flex: 1; }
+  .company-name { font-size: 16px; font-weight: 700; color: #0D1B2A; margin-bottom: 4px; }
+  .company-name .en-name { font-size: 11px; color: #1A6B8A; font-weight: 600; margin-left: 4px; }
+  .badge-row { display: flex; gap: 6px; flex-wrap: wrap; }
+  .badge { display: inline-flex; align-items: center; gap: 3px; font-size: 10px; font-weight: 600; border-radius: 4px; padding: 2px 7px; }
+  .badge.blue { background: rgba(26,107,138,0.1); color: #1A6B8A; }
+  .badge.green { background: rgba(0,201,167,0.12); color: #009f84; }
+  .badge.gold { background: rgba(255,185,0,0.12); color: #c8930a; }
+  .divider { height: 1px; background: #F0F2F5; margin: 14px 0; }
+  .stat-row { display: flex; }
+  .stat-item { flex: 1; text-align: center; }
+  .stat-item + .stat-item { border-left: 1px solid #F0F2F5; }
+  .stat-val { font-size: 18px; font-weight: 800; color: #0D1B2A; line-height: 1.2; }
+  .stat-val span { font-size: 11px; color: #1A6B8A; }
+  .stat-lbl { font-size: 10px; color: #888; margin-top: 2px; }
+  .section { padding: 24px 16px 0; }
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .sec-icon { width: 4px; height: 18px; background: linear-gradient(180deg,#00C9A7,#1A6B8A); border-radius: 2px; flex-shrink: 0; }
+  .sec-title { font-size: 16px; font-weight: 700; color: #0D1B2A; }
+  .sec-subtitle { font-size: 11px; color: #888; margin-left: auto; }
+  .text-card { background: #fff; border-radius: 12px; padding: 16px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); font-size: 13px; color: #444; line-height: 1.75; }
+  .pain-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .pain-card { background: #fff; border-radius: 12px; padding: 14px 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+  .pain-icon { font-size: 24px; margin-bottom: 6px; }
+  .pain-title { font-size: 13px; font-weight: 700; color: #0D1B2A; margin-bottom: 4px; }
+  .pain-desc { font-size: 11px; color: #666; line-height: 1.5; }
+  .prod-card { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.07); margin-bottom: 16px; }
+  .prod-header { background: linear-gradient(135deg,#0D1B2A,#1A3A50); padding: 16px 18px; display: flex; align-items: center; gap: 12px; }
+  .prod-icon { font-size: 28px; }
+  .prod-tag-label { font-size: 10px; color: #00C9A7; letter-spacing: 1px; margin-bottom: 4px; }
+  .prod-name { font-size: 18px; font-weight: 800; color: #fff; }
+  .prod-name-en { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 2px; }
+  .prod-body { padding: 16px 18px; }
+  .prod-tagline { font-size: 13px; font-weight: 600; color: #0D1B2A; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid #F0F2F5; }
+  .prod-stats { display: flex; margin-bottom: 14px; }
+  .ps-item { flex: 1; text-align: center; }
+  .ps-item + .ps-item { border-left: 1px solid #F0F2F5; }
+  .ps-val { font-size: 20px; font-weight: 800; color: #00C9A7; }
+  .ps-unit { font-size: 10px; color: #1A6B8A; }
+  .ps-lbl { font-size: 10px; color: #888; margin-top: 2px; }
+  .feat-list { list-style: none; }
+  .feat-list li { padding: 7px 0; border-bottom: 1px solid #F5F7FA; font-size: 12px; color: #444; display: flex; align-items: flex-start; gap: 8px; line-height: 1.5; }
+  .feat-list li:last-child { border-bottom: none; }
+  .feat-list li::before { content: '✓'; color: #00C9A7; font-weight: 700; font-size: 13px; flex-shrink: 0; margin-top: 1px; }
+  .svg-wrap { background: #0D1B2A; border-radius: 10px; overflow: hidden; margin-bottom: 14px; }
+  .platform-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+  .ptag { font-size: 10px; font-weight: 600; padding: 3px 9px; border-radius: 12px; background: rgba(26,107,138,0.08); color: #1A6B8A; border: 1px solid rgba(26,107,138,0.15); }
+  .compare-table { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.06); }
+  .compare-table table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .compare-table thead th { padding: 10px 12px; font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .compare-table .th-bs { background: linear-gradient(135deg,#0D1B2A,#1A3A50); color: #00C9A7; }
+  .compare-table .th-trad { background: #F5F7FA; color: #888; }
+  .compare-table tbody tr:nth-child(even) { background: #FAFBFC; }
+  .compare-table tbody td { padding: 10px 12px; border-bottom: 1px solid #F0F2F5; vertical-align: middle; color: #444; }
+  .compare-table tbody tr:last-child td { border-bottom: none; }
+  .compare-table .tick { color: #00A87A; font-weight: 600; }
+  .compare-table .cross { color: #999; }
+  .plan-cards { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 8px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
+  .plan-card { min-width: 160px; border-radius: 14px; overflow: hidden; scroll-snap-align: start; flex-shrink: 0; }
+  .plan-card.basic .plan-head { background: linear-gradient(135deg,#4A5568,#2D3748); }
+  .plan-card.standard .plan-head { background: linear-gradient(135deg,#1A6B8A,#0D4D6B); }
+  .plan-card.premium .plan-head { background: linear-gradient(135deg,#00C9A7,#1A6B8A); }
+  .plan-head { padding: 14px 14px 12px; }
+  .plan-name { font-size: 16px; font-weight: 800; color: #fff; }
+  .plan-en { font-size: 10px; color: rgba(255,255,255,0.6); margin-top: 2px; }
+  .plan-body { background: #fff; padding: 12px 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); border-radius: 0 0 14px 14px; }
+  .plan-feat { font-size: 11px; color: #444; padding: 5px 0; border-bottom: 1px solid #F5F7FA; display: flex; align-items: center; gap: 6px; }
+  .plan-feat:last-child { border-bottom: none; }
+  .plan-feat::before { content: '·'; color: #00C9A7; font-weight: 900; font-size: 14px; flex-shrink: 0; }
+  .customer-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .cust-card { background: #fff; border-radius: 12px; padding: 16px 12px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+  .cust-icon { font-size: 28px; margin-bottom: 8px; }
+  .cust-name { font-size: 13px; font-weight: 700; color: #0D1B2A; margin-bottom: 4px; }
+  .cust-desc { font-size: 11px; color: #666; line-height: 1.5; }
+  .value-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .value-block { background: #fff; border-radius: 12px; padding: 16px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+  .vb-val { font-size: 24px; font-weight: 800; color: #00C9A7; line-height: 1.2; margin-bottom: 6px; }
+  .vb-lbl { font-size: 11px; color: #666; line-height: 1.4; }
+  .step-item { display: flex; align-items: flex-start; gap: 14px; padding: 14px 0; border-bottom: 1px solid #F0F2F5; }
+  .step-item:last-child { border-bottom: none; }
+  .step-num { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg,#00C9A7,#1A6B8A); color: #fff; font-size: 15px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .step-content { flex: 1; }
+  .step-title { font-size: 13px; font-weight: 700; color: #0D1B2A; margin-bottom: 4px; }
+  .step-desc { font-size: 12px; color: #666; line-height: 1.6; }
+  .cta-section { margin: 24px 16px 0; background: linear-gradient(135deg,#0D1B2A,#1A3A50); border-radius: 16px; padding: 28px 20px; text-align: center; }
+  .cta-title { font-size: 22px; font-weight: 800; color: #fff; line-height: 1.3; margin-bottom: 8px; white-space: pre-line; }
+  .cta-sub { font-size: 12px; color: rgba(255,255,255,0.55); margin-bottom: 20px; }
+  .cta-btn { background: linear-gradient(135deg,#00C9A7,#1A6B8A); color: #fff; font-size: 15px; font-weight: 700; border: none; border-radius: 24px; padding: 12px 32px; cursor: pointer; box-shadow: 0 4px 16px rgba(0,201,167,0.4); }
+  .page-footer { margin-top: 24px; padding: 24px 16px; background: #0D1B2A; text-align: center; }
+  .footer-logo { font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 4px; }
+  .footer-logo .fc { color: #00C9A7; }
+  .footer-en { font-size: 11px; letter-spacing: 3px; color: rgba(255,255,255,0.4); margin-bottom: 8px; }
+  .footer-slogan { font-size: 12px; color: rgba(255,255,255,0.5); margin-bottom: 12px; }
+  .footer-links { display: flex; justify-content: center; gap: 16px; margin-bottom: 12px; }
+  .footer-links span { font-size: 11px; color: rgba(255,255,255,0.35); cursor: pointer; }
+  .footer-contact { font-size: 11px; color: rgba(255,255,255,0.35); line-height: 1.8; }
+  .mt16 { margin-top: 16px; }
+  .mt12 { margin-top: 12px; }
+  /* ── AI Chat ── */
+  .float-btn { position: fixed; right: 16px; bottom: 28px; width: 52px; height: 52px; border-radius: 50%; background: linear-gradient(135deg,#00C9A7,#1A6B8A); box-shadow: 0 4px 18px rgba(0,201,167,0.45); display: flex; align-items: center; justify-content: center; font-size: 24px; cursor: pointer; z-index: 300; animation: pulse 2.5s infinite; user-select: none; }
+  .float-badge { position: absolute; top: -2px; right: -2px; width: 18px; height: 18px; border-radius: 50%; background: #FF4757; color: #fff; font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center; border: 2px solid #fff; }
+  @keyframes pulse { 0%,100%{ box-shadow:0 4px 18px rgba(0,201,167,0.4); transform:scale(1); } 50%{ box-shadow:0 6px 26px rgba(0,201,167,0.65); transform:scale(1.06); } }
+  .chat-window { position: fixed; right: 12px; bottom: 92px; width: calc(100vw - 24px); max-width: 360px; height: 530px; max-height: calc(100vh - 120px); background: #fff; border-radius: 20px; box-shadow: 0 8px 40px rgba(0,0,0,0.18); display: flex; flex-direction: column; z-index: 299; overflow: hidden; transform: scale(0.92) translateY(12px); opacity: 0; pointer-events: none; transition: all 0.25s cubic-bezier(0.34,1.56,0.64,1); transform-origin: bottom right; }
+  .chat-window.open { transform: scale(1) translateY(0); opacity: 1; pointer-events: auto; }
+  .chat-header { background: linear-gradient(135deg,#0D1B2A,#1A3A50); padding: 14px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+  .chat-header-left { display: flex; align-items: center; gap: 10px; }
+  .chat-avatar { width: 38px; height: 38px; border-radius: 10px; background: linear-gradient(135deg,#00C9A7,#1A6B8A); color: #fff; font-size: 16px; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+  .chat-name { font-size: 13px; font-weight: 700; color: #fff; }
+  .chat-status { font-size: 10px; color: rgba(255,255,255,0.6); display:flex; align-items:center; gap:4px; margin-top:2px; }
+  .online-dot { width:6px; height:6px; border-radius:50%; background:#00C9A7; animation: blink 1.5s infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+  .chat-close { background:none; border:none; color:rgba(255,255,255,0.5); font-size:16px; cursor:pointer; padding:4px 8px; }
+  .chat-messages { flex:1; overflow-y:auto; padding:14px 12px; display:flex; flex-direction:column; gap:10px; background:#F8FAFB; scroll-behavior:smooth; }
+  .chat-messages::-webkit-scrollbar { width:3px; }
+  .chat-messages::-webkit-scrollbar-thumb { background:#ddd; border-radius:2px; }
+  .msg { display:flex; gap:8px; align-items:flex-end; }
+  .msg.bot { flex-direction:row; }
+  .msg.user { flex-direction:row-reverse; }
+  .msg-avatar { width:28px; height:28px; border-radius:8px; flex-shrink:0; background:linear-gradient(135deg,#00C9A7,#1A6B8A); color:#fff; font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center; }
+  .msg-bubble { max-width:80%; padding:10px 13px; border-radius:14px; font-size:13px; line-height:1.65; }
+  .msg.bot .msg-bubble { background:#fff; color:#222; border-bottom-left-radius:4px; box-shadow:0 1px 6px rgba(0,0,0,0.07); }
+  .msg.user .msg-bubble { background:linear-gradient(135deg,#00C9A7,#1A6B8A); color:#fff; border-bottom-right-radius:4px; }
+  .msg-time { font-size:9px; color:#bbb; flex-shrink:0; align-self:flex-end; }
+  .typing-dots { display:flex; gap:4px; padding:4px 2px; }
+  .typing-dots span { width:7px; height:7px; border-radius:50%; background:#ccc; animation:bounce 1.2s infinite; }
+  .typing-dots span:nth-child(2){ animation-delay:.2s; }
+  .typing-dots span:nth-child(3){ animation-delay:.4s; }
+  @keyframes bounce { 0%,80%,100%{transform:translateY(0)} 40%{transform:translateY(-6px)} }
+  .chat-quick-btns { padding:8px 12px 4px; display:flex; gap:6px; flex-wrap:wrap; background:#F8FAFB; border-top:1px solid #F0F0F0; flex-shrink:0; }
+  .quick-btn { font-size:11px; color:#1A6B8A; background:rgba(26,107,138,0.08); border:1px solid rgba(26,107,138,0.2); border-radius:12px; padding:4px 11px; cursor:pointer; white-space:nowrap; transition:all 0.15s; }
+  .quick-btn:active { background:#1A6B8A; color:#fff; }
+  .chat-input-row { display:flex; gap:8px; padding:10px 12px; border-top:1px solid #EFEFEF; background:#fff; flex-shrink:0; }
+  .chat-input { flex:1; border:1.5px solid #E8E8E8; border-radius:20px; padding:8px 14px; font-size:13px; outline:none; font-family:inherit; background:#F8FAFB; transition:border-color 0.2s; }
+  .chat-input:focus { border-color:#00C9A7; background:#fff; }
+  .chat-send { background:linear-gradient(135deg,#00C9A7,#1A6B8A); color:#fff; border:none; border-radius:20px; padding:8px 16px; font-size:13px; font-weight:600; cursor:pointer; }
+</style>
+</head>
+<body>
+
+<!-- 顶部导航（由JS渲染） -->
+<header class="top-bar">
+  <div class="brand">
+    <div class="logo-icon" id="rLogoChar"></div>
+    <div class="brand-name">
+      <span id="rBrandCN"></span>
+      <span class="en" id="rBrandEN"></span>
+    </div>
+  </div>
+  <div class="header-actions">
+    <button class="contact-btn" id="ctaTop"></button>
+  </div>
+</header>
+
+<!-- Tab 导航（由JS渲染） -->
+<nav class="tab-nav" id="rTabNav"></nav>
+
+<main class="content-wrap">
+
+  <!-- HERO -->
+  <span class="section-anchor" id="sec-home"></span>
+  <div class="hero-banner">
+    <div class="hero-bg"></div>
+    <div class="glow1"></div><div class="glow2"></div>
+    <div class="hero-content">
+      <div class="hero-tag" id="rHeroTag"></div>
+      <div class="hero-title" id="rHeroTitle"></div>
+      <div class="hero-sub" id="rHeroSub"></div>
+    </div>
+  </div>
+
+  <!-- 公司名片 -->
+  <div class="company-info-card">
+    <div class="company-name-row">
+      <div class="avatar-box" id="rCompanyAvatar"></div>
+      <div class="company-meta">
+        <div class="company-name">
+          <span id="rCompanyName"></span>
+          <span class="en-name" id="rCompanyEN"></span>
+        </div>
+        <div class="badge-row" id="rBadges"></div>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="stat-row" id="rStats"></div>
+    <div class="divider"></div>
+    <div class="text-card" id="rCompanyDesc"></div>
+  </div>
+
+  <!-- 行业痛点 -->
+  <div class="section mt16">
+    <div class="section-header">
+      <div class="sec-icon"></div>
+      <div class="sec-title" id="rPainTitle"></div>
+    </div>
+    <div class="pain-grid" id="rPains"></div>
+  </div>
+
+  <!-- 三大产品 -->
+  <span class="section-anchor" id="sec-products"></span>
+  <div class="section mt16">
+    <div class="section-header">
+      <div class="sec-icon"></div>
+      <div class="sec-title">三大核心产品</div>
+    </div>
+    <div id="rProducts"></div>
+  </div>
+
+  <!-- 对比 -->
+  <span class="section-anchor" id="sec-compare"></span>
+  <div class="section mt16">
+    <div class="section-header">
+      <div class="sec-icon"></div>
+      <div class="sec-title" id="rCompareTitle"></div>
+    </div>
+    <div class="compare-table">
+      <table>
+        <thead><tr><th></th><th class="th-bs" id="rOurLabel"></th><th class="th-trad" id="rTheirLabel"></th></tr></thead>
+        <tbody id="rCompareRows"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 版本选择 -->
+  <div class="section mt16">
+    <div class="section-header">
+      <div class="sec-icon"></div>
+      <div class="sec-title" id="rPlansTitle"></div>
+      <div class="sec-subtitle">滑动查看 →</div>
+    </div>
+    <div class="plan-cards" id="rPlans"></div>
+  </div>
+
+  <!-- 关于 -->
+  <span class="section-anchor" id="sec-about"></span>
+  <div class="section mt16">
+    <div class="section-header">
+      <div class="sec-icon"></div>
+      <div class="sec-title" id="rAboutTitle"></div>
+    </div>
+    <div class="customer-cards" id="rCustomers"></div>
+  </div>
+
+  <!-- 核心价值 -->
+  <div class="section mt16">
+    <div class="section-header">
+      <div class="sec-icon"></div>
+      <div class="sec-title" id="rValuesTitle"></div>
+    </div>
+    <div class="value-grid" id="rValues"></div>
+  </div>
+
+  <!-- 3步上手 -->
+  <div class="section mt16">
+    <div class="section-header">
+      <div class="sec-icon"></div>
+      <div class="sec-title" id="rStepsTitle"></div>
+    </div>
+    <div id="rSteps"></div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <div class="cta-title" id="rCtaTitle"></div>
+    <div class="cta-sub" id="rCtaSub"></div>
+    <button class="cta-btn" id="ctaBottom"></button>
+  </div>
+
+  <!-- 页脚 -->
+  <footer class="page-footer">
+    <div class="footer-logo"><span class="fc" id="rFooterChar"></span><span id="rFooterBrand"></span></div>
+    <div class="footer-en" id="rFooterEN"></div>
+    <div class="footer-slogan" id="rFooterSlogan"></div>
+    <div class="footer-links" id="rFooterLinks"></div>
+    <div class="footer-contact" id="rFooterContact"></div>
+  </footer>
+
+</main>
+
+<!-- AI 聊天悬浮按钮 -->
+<div class="float-btn" id="chatToggle">
+  <span>💬</span>
+  <span class="float-badge" id="chatBadge">1</span>
+</div>
+
+<!-- AI 聊天窗口 -->
+<div class="chat-window" id="chatWindow">
+  <div class="chat-header">
+    <div class="chat-header-left">
+      <div class="chat-avatar" id="rChatAvatar"></div>
+      <div>
+        <div class="chat-name" id="rChatName"></div>
+        <div class="chat-status"><span class="online-dot"></span>在线服务中</div>
+      </div>
+    </div>
+    <button class="chat-close" id="chatClose">✕</button>
+  </div>
+  <div class="chat-messages" id="chatMessages"></div>
+  <div class="chat-quick-btns" id="quickBtns"></div>
+  <div class="chat-input-row">
+    <input class="chat-input" id="chatInput" type="text" placeholder="输入您的问题…" maxlength="200">
+    <button class="chat-send" id="chatSend">发送</button>
+  </div>
+</div>
+
+<script>
+// ─────────────────────────────────────────────
+// 渲染引擎：从 CONFIG 注入所有文字
+// ─────────────────────────────────────────────
+const C = CONFIG;
+
+// 工具函数
+const $ = id => document.getElementById(id);
+const setText = (id, txt) => { const el=$(id); if(el) el.textContent = txt; };
+const setHtml = (id, html) => { const el=$(id); if(el) el.innerHTML = html; };
+
+// 页面标题
+document.title = C.pageTitle;
+setText('rLogoChar',   C.logoChar);
+setText('rBrandCN',    C.brandCN);
+setText('rBrandEN',    C.brandEN);
+setText('ctaTop',      C.headerBtn);
+
+// Hero
+setText('rHeroTag',   C.heroTag);
+setText('rHeroTitle', C.heroTitle);
+setText('rHeroSub',   C.heroSub);
+
+// 公司名片
+setText('rCompanyAvatar', C.companyAvatar);
+setText('rCompanyName',   C.companyName);
+setText('rCompanyEN',     C.companyEN);
+setText('rCompanyDesc',   C.companyDesc);
+
+const badgeColors = ['blue','green','gold'];
+setHtml('rBadges', C.badges.map((b,i)=>`<span class="badge ${badgeColors[i%3]}">${b}</span>`).join(''));
+
+setHtml('rStats', C.stats.map(s=>`
+  <div class="stat-item">
+    <div class="stat-val">${s.val}<span>${s.unit}</span></div>
+    <div class="stat-lbl">${s.lbl}</div>
+  </div>`).join(''));
+
+// Tab 导航
+setHtml('rTabNav', C.tabs.map((t,i)=>`
+  <div class="tab-item${i===0?' active':''}" data-target="${t.target}">${t.label}</div>`).join(''));
+
+// 痛点
+setText('rPainTitle', C.painTitle);
+setHtml('rPains', C.pains.map(p=>`
+  <div class="pain-card">
+    <div class="pain-icon">${p.icon}</div>
+    <div class="pain-title">${p.title}</div>
+    <div class="pain-desc">${p.desc}</div>
+  </div>`).join(''));
+
+// 产品（保留SVG示意图硬编码，其余文字从CONFIG读取）
+const prodSVGs = {
+  p1: `<div class="svg-wrap">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 140" style="width:100%;display:block;" font-family="sans-serif">
+      <rect width="340" height="140" fill="#0D1B2A"/>
+      <rect x="8" y="8" width="150" height="124" rx="8" fill="#1A3A50" stroke="rgba(0,201,167,0.3)" stroke-width="1"/>
+      <rect x="8" y="8" width="150" height="28" rx="8" fill="rgba(0,201,167,0.15)"/>
+      <rect x="8" y="28" width="150" height="8" fill="rgba(0,201,167,0.15)"/>
+      <text x="83" y="26" text-anchor="middle" fill="#00C9A7" font-size="9" font-weight="bold">AI多语言微店预览</text>
+      <rect x="16" y="44" width="134" height="50" rx="6" fill="#0D2A3A"/>
+      <text x="83" y="64" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="8">产品展示区</text>
+      <rect x="20" y="70" width="38" height="20" rx="3" fill="rgba(0,201,167,0.2)"/>
+      <rect x="62" y="70" width="38" height="20" rx="3" fill="rgba(26,107,138,0.3)"/>
+      <rect x="104" y="70" width="38" height="20" rx="3" fill="rgba(0,201,167,0.2)"/>
+      <rect x="16" y="100" width="60" height="12" rx="4" fill="rgba(0,201,167,0.3)"/>
+      <text x="46" y="110" text-anchor="middle" fill="#00C9A7" font-size="7">立即咨询</text>
+      <rect x="84" y="100" width="60" height="12" rx="4" fill="rgba(26,107,138,0.25)"/>
+      <text x="114" y="110" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-size="7">了解更多</text>
+      <rect x="166" y="8" width="166" height="124" rx="8" fill="#1A3A50" stroke="rgba(0,201,167,0.2)" stroke-width="1"/>
+      <rect x="166" y="8" width="166" height="22" rx="8" fill="rgba(26,107,138,0.25)"/>
+      <rect x="166" y="22" width="166" height="8" fill="rgba(26,107,138,0.25)"/>
+      <text x="249" y="22" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="8" font-weight="bold">导入资料</text>
+      <text x="182" y="48" fill="rgba(255,255,255,0.5)" font-size="7">✓ 产品图片 (12张)</text>
+      <text x="182" y="62" fill="rgba(255,255,255,0.5)" font-size="7">✓ 案例对比图 (6组)</text>
+      <text x="182" y="76" fill="rgba(255,255,255,0.5)" font-size="7">✓ 客户好评 (28条)</text>
+      <text x="182" y="90" fill="rgba(255,255,255,0.5)" font-size="7">✓ 资质证书 (4张)</text>
+      <rect x="174" y="100" width="150" height="20" rx="5" fill="rgba(0,201,167,0.2)" stroke="#00C9A7" stroke-width="0.8"/>
+      <text x="249" y="114" text-anchor="middle" fill="#00C9A7" font-size="8" font-weight="bold">⚡ AI一键生成多语言微店</text>
+    </svg></div>`,
+  p2: `<div class="svg-wrap">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 160" style="width:100%;display:block;" font-family="sans-serif">
+      <rect width="340" height="160" fill="#0D1B2A"/>
+      <rect x="8" y="8" width="152" height="144" rx="8" fill="#1A3A50" stroke="rgba(0,201,167,0.25)" stroke-width="1"/>
+      <rect x="8" y="8" width="152" height="26" rx="8" fill="rgba(0,201,167,0.12)"/>
+      <rect x="8" y="26" width="152" height="8" fill="rgba(0,201,167,0.12)"/>
+      <text x="84" y="24" text-anchor="middle" fill="#00C9A7" font-size="8.5" font-weight="bold">智销盾 · 访客识别</text>
+      <rect x="16" y="42" width="136" height="22" rx="5" fill="rgba(255,100,100,0.12)" stroke="rgba(255,100,100,0.3)" stroke-width="0.8"/>
+      <text x="28" y="57" fill="#FF6B6B" font-size="8" font-weight="bold">⚠ 疑似同行</text>
+      <text x="110" y="57" fill="rgba(255,255,255,0.4)" font-size="7">拦截中</text>
+      <rect x="16" y="70" width="136" height="22" rx="5" fill="rgba(255,185,0,0.1)" stroke="rgba(255,185,0,0.25)" stroke-width="0.8"/>
+      <text x="28" y="85" fill="#FFB800" font-size="8" font-weight="bold">👀 低意向观察</text>
+      <text x="110" y="85" fill="rgba(255,255,255,0.4)" font-size="7">监控中</text>
+      <rect x="16" y="98" width="136" height="22" rx="5" fill="rgba(0,201,167,0.12)" stroke="rgba(0,201,167,0.3)" stroke-width="0.8"/>
+      <text x="28" y="113" fill="#00C9A7" font-size="8" font-weight="bold">🎯 高价值客户</text>
+      <text x="108" y="113" fill="#00C9A7" font-size="7">优先接待</text>
+      <rect x="16" y="126" width="136" height="16" rx="4" fill="rgba(0,201,167,0.07)"/>
+      <text x="84" y="138" text-anchor="middle" fill="rgba(255,255,255,0.35)" font-size="7">今日接待 · 自动分级处理</text>
+      <rect x="168" y="8" width="164" height="144" rx="8" fill="#1A3A50" stroke="rgba(0,201,167,0.2)" stroke-width="1"/>
+      <rect x="168" y="8" width="164" height="26" rx="8" fill="rgba(26,107,138,0.25)"/>
+      <rect x="168" y="26" width="164" height="8" fill="rgba(26,107,138,0.25)"/>
+      <text x="250" y="24" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="8.5" font-weight="bold">AI 接待对话</text>
+      <rect x="176" y="40" width="100" height="18" rx="6" fill="#fff" opacity="0.9"/>
+      <text x="226" y="53" text-anchor="middle" fill="#333" font-size="7">您好！请问有什么需要？</text>
+      <rect x="208" y="64" width="112" height="18" rx="6" fill="#00C9A7" opacity="0.85"/>
+      <text x="264" y="77" text-anchor="middle" fill="#fff" font-size="7">你们产品最低价多少？</text>
+      <rect x="176" y="88" width="130" height="28" rx="6" fill="#fff" opacity="0.9"/>
+      <text x="241" y="100" text-anchor="middle" fill="#555" font-size="6.5">我们的方案需要根据您</text>
+      <text x="241" y="111" text-anchor="middle" fill="#555" font-size="6.5">的具体需求来定制评估~</text>
+      <rect x="176" y="122" width="148" height="20" rx="5" fill="rgba(0,201,167,0.15)" stroke="rgba(0,201,167,0.4)" stroke-width="0.8"/>
+      <text x="250" y="136" text-anchor="middle" fill="#00C9A7" font-size="7" font-weight="bold">⚡ 同行话术自动识别&amp;防御</text>
+    </svg></div>`,
+  p3: `<div class="svg-wrap">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 216" style="width:100%;display:block;" font-family="sans-serif">
+      <rect width="340" height="216" fill="#0D1B2A"/>
+      <rect x="8" y="8" width="68" height="44" rx="7" fill="#1A3A50"/>
+      <rect x="8" y="8" width="68" height="18" rx="7" fill="rgba(0,201,167,0.2)"/>
+      <text x="42" y="21" text-anchor="middle" fill="#00C9A7" font-size="7.5" font-weight="bold">AI生成内容</text>
+      <text x="42" y="38" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-size="7">AI一键生成</text>
+      <text x="42" y="49" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-size="7">多语言内容</text>
+      <polygon points="79,30 85,27 85,33" fill="#00C9A7" opacity="0.7"/>
+      <line x1="76" y1="30" x2="84" y2="30" stroke="#00C9A7" stroke-width="1.2" opacity="0.7"/>
+      <rect x="87" y="8" width="68" height="44" rx="7" fill="#1A3A50"/>
+      <rect x="87" y="8" width="68" height="18" rx="7" fill="rgba(0,201,167,0.2)"/>
+      <text x="121" y="21" text-anchor="middle" fill="#00C9A7" font-size="7.5" font-weight="bold">一键分发</text>
+      <text x="97" y="37" font-size="11">📘</text><text x="112" y="37" font-size="11">📸</text>
+      <text x="127" y="37" font-size="11">💼</text><text x="142" y="37" font-size="11">🎵</text>
+      <text x="121" y="49" text-anchor="middle" fill="#00C9A7" font-size="7.5">8大社媒同步</text>
+      <polygon points="158,30 164,27 164,33" fill="#00C9A7" opacity="0.7"/>
+      <line x1="155" y1="30" x2="163" y2="30" stroke="#00C9A7" stroke-width="1.2" opacity="0.7"/>
+      <rect x="166" y="8" width="68" height="44" rx="7" fill="#1A3A50"/>
+      <rect x="166" y="8" width="68" height="18" rx="7" fill="rgba(0,201,167,0.2)"/>
+      <text x="200" y="21" text-anchor="middle" fill="#00C9A7" font-size="7.5" font-weight="bold">AI声呐扫描</text>
+      <text x="200" y="36" text-anchor="middle" font-size="18">📡</text>
+      <text x="200" y="48" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-size="7">识别潜在买家</text>
+      <polygon points="237,30 243,27 243,33" fill="#00C9A7" opacity="0.7"/>
+      <line x1="234" y1="30" x2="242" y2="30" stroke="#00C9A7" stroke-width="1.2" opacity="0.7"/>
+      <rect x="245" y="8" width="87" height="44" rx="7" fill="#1A3A50"/>
+      <rect x="245" y="8" width="87" height="18" rx="7" fill="rgba(0,201,167,0.2)"/>
+      <text x="288" y="21" text-anchor="middle" fill="#00C9A7" font-size="7.5" font-weight="bold">AI私信触达</text>
+      <text x="288" y="36" text-anchor="middle" font-size="18">💬</text>
+      <text x="288" y="48" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-size="7">潜客自动入库</text>
+      <rect x="8" y="62" width="324" height="144" rx="8" fill="#1A3A50" stroke="rgba(0,201,167,0.15)" stroke-width="1"/>
+      <rect x="8" y="62" width="324" height="18" rx="8" fill="rgba(0,201,167,0.08)"/>
+      <text x="18" y="74" fill="rgba(255,255,255,0.4)" font-size="7">平台</text>
+      <text x="70" y="74" fill="rgba(255,255,255,0.4)" font-size="7">用户名</text>
+      <text x="170" y="74" fill="rgba(255,255,255,0.4)" font-size="7">意向关键词</text>
+      <text x="265" y="74" fill="rgba(255,255,255,0.4)" font-size="7">状态</text>
+      <text x="305" y="74" fill="rgba(255,255,255,0.4)" font-size="7">操作</text>
+      <rect x="8" y="80" width="324" height="30" rx="0" fill="rgba(0,201,167,0.05)"/>
+      <rect x="16" y="87" width="40" height="14" rx="4" fill="rgba(10,102,194,0.3)"/>
+      <text x="36" y="98" text-anchor="middle" fill="#7EB4E8" font-size="7">LinkedIn</text>
+      <text x="70" y="98" fill="rgba(255,255,255,0.7)" font-size="7">@Sarah_Chen</text>
+      <text x="170" y="98" fill="#00C9A7" font-size="7">medical device supplier</text>
+      <rect x="260" y="86" width="36" height="14" rx="4" fill="rgba(255,180,0,0.2)"/>
+      <text x="278" y="97" text-anchor="middle" fill="#FFB800" font-size="7">高意向</text>
+      <text x="305" y="98" fill="#00C9A7" font-size="7">✓已发</text>
+      <rect x="8" y="110" width="324" height="30" rx="0" fill="rgba(255,255,255,0.02)"/>
+      <rect x="16" y="117" width="40" height="14" rx="4" fill="rgba(24,119,242,0.25)"/>
+      <text x="36" y="128" text-anchor="middle" fill="#7EA8F8" font-size="7">Facebook</text>
+      <text x="70" y="128" fill="rgba(255,255,255,0.7)" font-size="7">@james_trade</text>
+      <text x="170" y="128" fill="#00C9A7" font-size="7">wholesale supplier needed</text>
+      <rect x="260" y="116" width="36" height="14" rx="4" fill="rgba(0,201,167,0.15)"/>
+      <text x="278" y="127" text-anchor="middle" fill="#00C9A7" font-size="7">中意向</text>
+      <text x="305" y="128" fill="rgba(255,255,255,0.35)" font-size="7">待发</text>
+      <rect x="8" y="140" width="324" height="30" rx="0" fill="rgba(0,201,167,0.05)"/>
+      <rect x="16" y="147" width="44" height="14" rx="4" fill="rgba(0,0,0,0.3)"/>
+      <text x="38" y="158" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="7">Instagram</text>
+      <text x="70" y="158" fill="rgba(255,255,255,0.7)" font-size="7">@raj_imports</text>
+      <text x="170" y="158" fill="#00C9A7" font-size="7">hardware importer OEM</text>
+      <rect x="260" y="146" width="36" height="14" rx="4" fill="rgba(255,180,0,0.2)"/>
+      <text x="278" y="157" text-anchor="middle" fill="#FFB800" font-size="7">高意向</text>
+      <text x="305" y="158" fill="#00C9A7" font-size="7">✓已发</text>
+      <rect x="8" y="192" width="324" height="14" rx="0" fill="rgba(0,201,167,0.06)" stroke="rgba(0,201,167,0.15)" stroke-width="0.5"/>
+      <text x="60" y="202" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="7">今日扫描: 1,284条</text>
+      <text x="170" y="202" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="7">识别潜客: 47人</text>
+      <text x="275" y="202" text-anchor="middle" fill="#00C9A7" font-size="7">触达成功: 43人</text>
+    </svg></div>`,
+};
+
+const prodHTML = C.products.map(p => {
+  const statsHtml = (p.stats||[]).map(s=>`
+    <div class="ps-item">
+      <div class="ps-val">${s.val}<span class="ps-unit">${s.unit}</span></div>
+      <div class="ps-lbl">${s.lbl}</div>
+    </div>`).join('');
+  const featsHtml = (p.features||[]).map(f=>`<li>${f}</li>`).join('');
+  const platformHtml = p.platforms ? `<div class="platform-tags">${p.platforms.map(pl=>`<span class="ptag">${pl}</span>`).join('')}</div>` : '';
+  const svgHtml = prodSVGs[p.id] || '';
+  return `
+  <div class="prod-card">
+    <div class="prod-header">
+      <div class="prod-icon">${p.icon}</div>
+      <div>
+        <div class="prod-tag-label">${p.tag}</div>
+        <div class="prod-name">${p.name}</div>
+        <div class="prod-name-en">${p.nameEN}</div>
+      </div>
+    </div>
+    <div class="prod-body">
+      <div class="prod-tagline">${p.tagline}</div>
+      ${statsHtml ? `<div class="prod-stats">${statsHtml}</div>` : ''}
+      ${svgHtml}
+      <ul class="feat-list">${featsHtml}</ul>
+      ${platformHtml}
+    </div>
+  </div>`;
+}).join('');
+setHtml('rProducts', prodHTML);
+
+// 对比表
+setText('rCompareTitle', C.compareTitle);
+setText('rOurLabel',     C.ourLabel);
+setText('rTheirLabel',   C.theirLabel);
+setHtml('rCompareRows', C.compareRows.map(r=>`
+  <tr>
+    <td>${r.item}</td>
+    <td class="tick">${r.ours}</td>
+    <td class="cross">${r.theirs}</td>
+  </tr>`).join(''));
+
+// 版本选择
+setText('rPlansTitle', C.plansTitle);
+setHtml('rPlans', C.plans.map(pl=>`
+  <div class="plan-card ${pl.tier}">
+    <div class="plan-head">
+      <div class="plan-name">${pl.name}</div>
+      <div class="plan-en">${pl.nameEN}</div>
+    </div>
+    <div class="plan-body">
+      ${pl.feats.map(f=>`<div class="plan-feat">${f}</div>`).join('')}
+    </div>
+  </div>`).join(''));
+
+// 关于/客户
+setText('rAboutTitle', C.aboutTitle);
+setHtml('rCustomers', C.customers.map(c=>`
+  <div class="cust-card">
+    <div class="cust-icon">${c.icon}</div>
+    <div class="cust-name">${c.name}</div>
+    <div class="cust-desc">${c.desc}</div>
+  </div>`).join(''));
+
+// 核心价值
+setText('rValuesTitle', C.valuesTitle);
+setHtml('rValues', C.values.map(v=>`
+  <div class="value-block">
+    <div class="vb-val">${v.val}</div>
+    <div class="vb-lbl">${v.lbl}</div>
+  </div>`).join(''));
+
+// 3步上手
+setText('rStepsTitle', C.stepsTitle);
+setHtml('rSteps', C.steps.map((s,i)=>`
+  <div class="step-item">
+    <div class="step-num">${i+1}</div>
+    <div class="step-content">
+      <div class="step-title">${s.title}</div>
+      <div class="step-desc">${s.desc}</div>
+    </div>
+  </div>`).join(''));
+
+// CTA
+setText('rCtaTitle', C.ctaTitle);
+setText('rCtaSub',   C.ctaSub);
+setText('ctaBottom', C.ctaBtn);
+
+// 页脚
+setText('rFooterChar',    C.logoChar);
+setText('rFooterBrand',   '商');
+setText('rFooterEN',      C.brandEN);
+setText('rFooterSlogan',  C.footerSlogan);
+setHtml('rFooterLinks',   C.footerLinks.map(l=>`<span>${l}</span>`).join(''));
+setText('rFooterContact', `📧 ${C.footerEmail}\n🌐 ${C.footerWeb}`);
+
+// AI 聊天
+setText('rChatName',   C.chat.botName);
+setText('rChatAvatar', C.chat.botAvatar);
+setHtml('quickBtns',   C.chat.quickBtns.map(b=>`<button class="quick-btn" data-q="${b.q}">${b.label}</button>`).join(''));
+
+// ─────────────────────────────────────────────
+// Tab 导航逻辑
+// ─────────────────────────────────────────────
+const tabs = document.querySelectorAll('.tab-item');
+const sectionIds = C.tabs.map(t => t.target);
+const HEADER_H = 98;
+
+tabs.forEach(tab => {
+  tab.addEventListener('click', function() {
+    const target = document.getElementById(this.dataset.target);
+    if (!target) return;
+    const top = target.getBoundingClientRect().top + window.scrollY - HEADER_H + 1;
+    window.scrollTo({ top, behavior: 'smooth' });
+    tabs.forEach(t => t.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+
+window.addEventListener('scroll', () => {
+  let current = sectionIds[0];
+  for (const id of sectionIds) {
+    const el = document.getElementById(id);
+    if (!el) continue;
+    if (el.getBoundingClientRect().top <= HEADER_H + 40) current = id;
+  }
+  tabs.forEach(tab => tab.classList.toggle('active', tab.dataset.target === current));
+}, { passive: true });
+
+// ─────────────────────────────────────────────
+// AI 聊天逻辑
+// ─────────────────────────────────────────────
+function getReply(text) {
+  const t = text.toLowerCase();
+  for (const item of C.chat.kb) {
+    if (item.keys.some(k => t.includes(k))) return item.ans;
+  }
+  return C.chat.fallback.replace('${text}', text);
+}
+
+const chatWindow  = $('chatWindow');
+const chatToggle  = $('chatToggle');
+const chatClose   = $('chatClose');
+const chatMessages = $('chatMessages');
+const chatInput   = $('chatInput');
+const chatSend    = $('chatSend');
+const chatBadge   = $('chatBadge');
+const quickBtnsEl = $('quickBtns');
+let opened = false;
+
+function openChat() {
+  opened = true;
+  chatWindow.classList.add('open');
+  chatBadge.style.display = 'none';
+  setTimeout(() => chatInput.focus(), 300);
+}
+function closeChat() { chatWindow.classList.remove('open'); }
+
+chatToggle.addEventListener('click', () => opened ? closeChat() : openChat());
+chatClose.addEventListener('click', closeChat);
+$('ctaTop').addEventListener('click', openChat);
+$('ctaBottom').addEventListener('click', openChat);
+
+function timeStr() {
+  const d = new Date();
+  return d.getHours().toString().padStart(2,'0') + ':' + d.getMinutes().toString().padStart(2,'0');
+}
+
+function addMsg(text, role) {
+  const wrap = document.createElement('div');
+  wrap.className = 'msg ' + role;
+  const html = text
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\n/g, '<br>');
+  const avatarChar = C.chat.botAvatar;
+  if (role === 'bot') {
+    wrap.innerHTML = `<div class="msg-avatar">${avatarChar}</div><div><div class="msg-bubble">${html}</div><div class="msg-time">${timeStr()}</div></div>`;
+  } else {
+    wrap.innerHTML = `<div><div class="msg-bubble">${html}</div><div class="msg-time" style="text-align:right">${timeStr()}</div></div>`;
+  }
+  chatMessages.appendChild(wrap);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+function addTyping() {
+  const wrap = document.createElement('div');
+  wrap.className = 'msg bot'; wrap.id = 'typing';
+  wrap.innerHTML = `<div class="msg-avatar">${C.chat.botAvatar}</div><div class="msg-bubble"><div class="typing-dots"><span></span><span></span><span></span></div></div>`;
+  chatMessages.appendChild(wrap);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+function removeTyping() { const t = $('typing'); if(t) t.remove(); }
+
+function sendMsg(text) {
+  if (!text.trim()) return;
+  quickBtnsEl.style.display = 'none';
+  addMsg(text, 'user');
+  chatInput.value = '';
+  addTyping();
+  const delay = 700 + Math.random() * 700;
+  setTimeout(() => { removeTyping(); addMsg(getReply(text), 'bot'); }, delay);
+}
+
+chatSend.addEventListener('click', () => sendMsg(chatInput.value));
+chatInput.addEventListener('keydown', e => { if (e.key === 'Enter') sendMsg(chatInput.value); });
+document.querySelectorAll('.quick-btn').forEach(btn => {
+  btn.addEventListener('click', function() { sendMsg(this.dataset.q); });
+});
+
+// 欢迎语
+setTimeout(() => { addMsg(C.chat.welcome, 'bot'); }, 500);
+</script>
+</body>
+</html>
